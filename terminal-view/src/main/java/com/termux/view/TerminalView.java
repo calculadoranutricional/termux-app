@@ -29,6 +29,8 @@ import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityManager;
 import android.view.autofill.AutofillManager;
 import android.view.autofill.AutofillValue;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -36,6 +38,16 @@ import android.widget.Scroller;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.view.inputmethod.InputConnectionCompat;
+import androidx.core.view.inputmethod.InputContentInfoCompat;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import com.termux.terminal.KeyHandler;
 import com.termux.terminal.TerminalEmulator;
@@ -368,7 +380,7 @@ public final class TerminalView extends View {
         // keyboard on Android TV (see https://github.com/termux/termux-app/issues/221).
         outAttrs.imeOptions = EditorInfo.IME_FLAG_NO_FULLSCREEN;
 
-        return new BaseInputConnection(this, true) {
+        BaseInputConnection baseInputConnection = new BaseInputConnection(this, true) {
 
             @Override
             public boolean finishComposingText() {
@@ -463,6 +475,68 @@ public final class TerminalView extends View {
             }
 
         };
+
+        String[] mimeTypes = new String[] {
+            "image/png",
+            "image/jpeg",
+            "image/jpg",
+            "image/gif",
+            "image/webp"
+        };
+
+        return InputConnectionCompat.createWrapper(baseInputConnection, outAttrs, mimeTypes,
+            new InputConnectionCompat.OnCommitContentListener() {
+                @Override
+                public boolean onCommitContent(InputContentInfoCompat inputContentInfo, int flags, Bundle opts) {
+                    if ((flags & InputConnectionCompat.INPUT_CONTENT_FLAG_READ_PERMISSION) != 0) {
+                        try {
+                            inputContentInfo.requestPermission();
+                        } catch (Exception e) {
+                            if (TERMINAL_VIEW_KEY_LOGGING_ENABLED) mClient.logInfo(LOG_TAG, "Error requesting content read permission: " + e.getMessage());
+                            return false;
+                        }
+                    }
+
+                    String mimeType = null;
+                    if (inputContentInfo.getDescription() != null && inputContentInfo.getDescription().getMimeTypeCount() > 0) {
+                        mimeType = inputContentInfo.getDescription().getMimeType(0);
+                    }
+
+                    Uri contentUri = inputContentInfo.getContentUri();
+                    if (contentUri == null) return false;
+
+                    String cwd = null;
+                    if (mTermSession != null) {
+                        cwd = mTermSession.getCwd();
+                    }
+                    if (cwd == null || cwd.isEmpty()) {
+                        cwd = System.getenv("HOME");
+                    }
+
+                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+                    String fileName = "pasted_image_" + timeStamp + ".jpg";
+                    File targetFile = new File(cwd, fileName);
+
+                    try (InputStream inputStream = getContext().getContentResolver().openInputStream(contentUri);
+                         FileOutputStream outputStream = new FileOutputStream(targetFile)) {
+
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, bytesRead);
+                        }
+
+                        if (mTermSession != null) {
+                            mTermSession.write(" " + targetFile.getAbsolutePath() + " ");
+                        }
+
+                        return true;
+                    } catch (IOException e) {
+                        if (TERMINAL_VIEW_KEY_LOGGING_ENABLED) mClient.logInfo(LOG_TAG, "Failed to save pasted image to cwd: " + e.getMessage());
+                        return false;
+                    }
+                }
+            });
     }
 
     @Override
