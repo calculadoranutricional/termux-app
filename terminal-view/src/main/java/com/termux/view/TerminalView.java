@@ -133,8 +133,34 @@ public final class TerminalView extends View {
 
     private static final String LOG_TAG = "TerminalView";
 
+    private android.graphics.Bitmap mBackgroundImage;
+    private android.graphics.Rect mBackgroundDstRect;
+    private final android.graphics.Paint mBackgroundPaint = new android.graphics.Paint(android.graphics.Paint.FILTER_BITMAP_FLAG);
+
+    public void loadBackgroundImage() {
+        try {
+            java.io.File bgFile = new java.io.File(getContext().getFilesDir(), "home/.termux/background.png");
+            if (!bgFile.exists()) {
+                bgFile = new java.io.File(getContext().getFilesDir(), "home/.termux/background.jpg");
+            }
+            if (!bgFile.exists()) {
+                bgFile = new java.io.File(getContext().getFilesDir(), "home/.termux/background.jpeg");
+            }
+            if (bgFile.exists()) {
+                mBackgroundImage = android.graphics.BitmapFactory.decodeFile(bgFile.getAbsolutePath());
+            } else {
+                mBackgroundImage = null;
+            }
+        } catch (Exception e) {
+            mBackgroundImage = null;
+            android.util.Log.e(LOG_TAG, "Failed to load background image", e);
+        }
+        invalidate();
+    }
+
     public TerminalView(Context context, AttributeSet attributes) { // NO_UCD (unused code)
         super(context, attributes);
+        loadBackgroundImage();
         mGestureRecognizer = new GestureAndScaleRecognizer(context, new GestureAndScaleRecognizer.Listener() {
 
             boolean scrolledWithFinger;
@@ -1007,9 +1033,19 @@ public final class TerminalView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (mEmulator == null) {
-            canvas.drawColor(0XFF000000);
+        if (mBackgroundImage != null) {
+            if (mBackgroundDstRect == null) {
+                mBackgroundDstRect = new android.graphics.Rect();
+            }
+            mBackgroundDstRect.set(0, 0, getWidth(), getHeight());
+            canvas.drawBitmap(mBackgroundImage, null, mBackgroundDstRect, mBackgroundPaint);
+            // Draw 50% semi-transparent dark overlay (alpha 128 / 0x80)
+            canvas.drawColor(0x80000000);
         } else {
+            canvas.drawColor(0XFF000000);
+        }
+
+        if (mEmulator != null) {
             // render the terminal view and highlight any selected text
             int[] sel = mDefaultSelectors;
             if (mTextSelectionCursorController != null) {

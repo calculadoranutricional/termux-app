@@ -149,6 +149,11 @@ public class TermuxTerminalViewClient extends TermuxTerminalViewClientBase {
 
         // Start terminal cursor blinking if enabled
         setTerminalCursorBlinkerState(true);
+
+        // Reload background image
+        if (mActivity.getTerminalView() != null) {
+            mActivity.getTerminalView().loadBackgroundImage();
+        }
     }
 
     /**
