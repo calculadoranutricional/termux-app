@@ -38,6 +38,7 @@ import android.widget.Scroller;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.view.inputmethod.EditorInfoCompat;
 import androidx.core.view.inputmethod.InputConnectionCompat;
 import androidx.core.view.inputmethod.InputContentInfoCompat;
 
@@ -483,12 +484,13 @@ public final class TerminalView extends View {
             "image/gif",
             "image/webp"
         };
+        EditorInfoCompat.setContentMimeTypes(outAttrs, mimeTypes);
 
-        return InputConnectionCompat.createWrapper(baseInputConnection, outAttrs, mimeTypes,
+        return InputConnectionCompat.createWrapper(baseInputConnection, outAttrs,
             new InputConnectionCompat.OnCommitContentListener() {
                 @Override
                 public boolean onCommitContent(InputContentInfoCompat inputContentInfo, int flags, Bundle opts) {
-                    if ((flags & InputConnectionCompat.INPUT_CONTENT_FLAG_READ_PERMISSION) != 0) {
+                    if ((flags & 1) != 0) {
                         try {
                             inputContentInfo.requestPermission();
                         } catch (Exception e) {
