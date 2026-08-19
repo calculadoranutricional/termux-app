@@ -146,8 +146,12 @@ public final class TerminalView extends View {
             if (!bgFile.exists()) {
                 bgFile = new java.io.File(getContext().getFilesDir(), "home/.termux/background.jpeg");
             }
+            if (!bgFile.exists()) {
+                bgFile = new java.io.File(getContext().getFilesDir(), "home/.termux/background.webp");
+            }
             if (bgFile.exists()) {
                 mBackgroundImage = android.graphics.BitmapFactory.decodeFile(bgFile.getAbsolutePath());
+                android.util.Log.i(LOG_TAG, "Loaded background image from " + bgFile.getAbsolutePath() + ", success: " + (mBackgroundImage != null));
             } else {
                 mBackgroundImage = null;
             }
@@ -1031,13 +1035,19 @@ public final class TerminalView extends View {
         }
     }
 
+    private int mMaxBgWidth = 0;
+    private int mMaxBgHeight = 0;
+
     @Override
     protected void onDraw(Canvas canvas) {
         if (mBackgroundImage != null) {
             if (mBackgroundDstRect == null) {
                 mBackgroundDstRect = new android.graphics.Rect();
             }
-            mBackgroundDstRect.set(0, 0, getWidth(), getHeight());
+            if (getWidth() > mMaxBgWidth) mMaxBgWidth = getWidth();
+            if (getHeight() > mMaxBgHeight) mMaxBgHeight = getHeight();
+            
+            mBackgroundDstRect.set(0, 0, mMaxBgWidth, mMaxBgHeight);
             canvas.drawBitmap(mBackgroundImage, null, mBackgroundDstRect, mBackgroundPaint);
             // Draw 50% semi-transparent dark overlay (alpha 128 / 0x80)
             canvas.drawColor(0x80000000);
