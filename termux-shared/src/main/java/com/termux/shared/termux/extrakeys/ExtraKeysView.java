@@ -125,7 +125,7 @@ public final class ExtraKeysView extends GridLayout {
     /** Defines the default fallback value for {@link #mButtonBackgroundColor} if {@link #ATTR_BUTTON_BACKGROUND_COLOR} is undefined. */
     public static final int DEFAULT_BUTTON_BACKGROUND_COLOR = 0x00000000;
     /** Defines the default fallback value for {@link #mButtonActiveBackgroundColor} if {@link #ATTR_BUTTON_ACTIVE_BACKGROUND_COLOR} is undefined. */
-    public static final int DEFAULT_BUTTON_ACTIVE_BACKGROUND_COLOR = 0xFF7F7F7F;
+    public static final int DEFAULT_BUTTON_ACTIVE_BACKGROUND_COLOR = 0x00000000;
 
 
 

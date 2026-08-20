@@ -1187,19 +1187,23 @@ public final class TerminalView extends View {
         }
     }
 
+    private int mMaxBgWidth = 0;
+    private int mMaxBgHeight = 0;
+
     @Override
     protected void onDraw(Canvas canvas) {
         if (mBackgroundImage != null) {
             if (mBackgroundDstRect == null) {
                 mBackgroundDstRect = new android.graphics.Rect();
             }
-            int viewWidth = getWidth();
-            int viewHeight = getHeight();
+            if (getWidth() > mMaxBgWidth) mMaxBgWidth = getWidth();
+            if (getHeight() > mMaxBgHeight) mMaxBgHeight = getHeight();
+
             int bmWidth = mBackgroundImage.getWidth();
             int bmHeight = mBackgroundImage.getHeight();
 
-            int left = (viewWidth - bmWidth) / 2;
-            int top = (viewHeight - bmHeight) / 2;
+            int left = (mMaxBgWidth - bmWidth) / 2;
+            int top = (mMaxBgHeight - bmHeight) / 2;
 
             mBackgroundDstRect.set(left, top, left + bmWidth, top + bmHeight);
             canvas.drawBitmap(mBackgroundImage, null, mBackgroundDstRect, mBackgroundPaint);
