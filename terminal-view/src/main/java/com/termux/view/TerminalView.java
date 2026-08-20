@@ -42,10 +42,13 @@ import androidx.core.view.inputmethod.EditorInfoCompat;
 import androidx.core.view.inputmethod.InputConnectionCompat;
 import androidx.core.view.inputmethod.InputContentInfoCompat;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -482,7 +485,21 @@ public final class TerminalView extends View {
             "image/jpeg",
             "image/jpg",
             "image/gif",
-            "image/webp"
+            "image/webp",
+            "image/*",
+            "text/plain",
+            "text/html",
+            "text/*",
+            "audio/mp3",
+            "audio/wav",
+            "audio/3gpp",
+            "audio/amr",
+            "audio/aac",
+            "audio/ogg",
+            "audio/m4a",
+            "audio/webm",
+            "audio/mpeg",
+            "audio/*"
         };
         EditorInfoCompat.setContentMimeTypes(outAttrs, mimeTypes);
 
@@ -503,6 +520,9 @@ public final class TerminalView extends View {
                     if (inputContentInfo.getDescription() != null && inputContentInfo.getDescription().getMimeTypeCount() > 0) {
                         mimeType = inputContentInfo.getDescription().getMimeType(0);
                     }
+                    if (mimeType == null) {
+                        mimeType = "";
+                    }
 
                     Uri contentUri = inputContentInfo.getContentUri();
                     if (contentUri == null) return false;
@@ -516,26 +536,82 @@ public final class TerminalView extends View {
                     }
 
                     String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-                    String fileName = "pasted_image_" + timeStamp + ".jpg";
-                    File targetFile = new File(cwd, fileName);
 
-                    try (InputStream inputStream = getContext().getContentResolver().openInputStream(contentUri);
-                         FileOutputStream outputStream = new FileOutputStream(targetFile)) {
-
-                        byte[] buffer = new byte[4096];
-                        int bytesRead;
-                        while ((bytesRead = inputStream.read(buffer)) != -1) {
-                            outputStream.write(buffer, 0, bytesRead);
+                    if (mimeType.startsWith("text/")) {
+                        try (InputStream inputStream = getContext().getContentResolver().openInputStream(contentUri);
+                             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                            StringBuilder sb = new StringBuilder();
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                sb.append(line).append("\n");
+                            }
+                            String textContent = sb.toString();
+                            if (!textContent.isEmpty() && mTermSession != null) {
+                                mTermSession.write(textContent);
+                            }
+                            return true;
+                        } catch (IOException e) {
+                            if (TERMINAL_VIEW_KEY_LOGGING_ENABLED) mClient.logInfo(LOG_TAG, "Failed to read pasted text: " + e.getMessage());
+                            return false;
                         }
+                    } else if (mimeType.startsWith("audio/")) {
+                        String extension = "mp3";
+                        if (mimeType.contains("wav")) extension = "wav";
+                        else if (mimeType.contains("3gpp") || mimeType.contains("3gp")) extension = "3gp";
+                        else if (mimeType.contains("amr")) extension = "amr";
+                        else if (mimeType.contains("aac")) extension = "aac";
+                        else if (mimeType.contains("ogg")) extension = "ogg";
+                        else if (mimeType.contains("m4a")) extension = "m4a";
+                        else if (mimeType.contains("webm")) extension = "webm";
 
-                        if (mTermSession != null) {
-                            mTermSession.write(" " + targetFile.getAbsolutePath() + " ");
+                        String fileName = "pasted_audio_" + timeStamp + "." + extension;
+                        File targetFile = new File(cwd, fileName);
+
+                        try (InputStream inputStream = getContext().getContentResolver().openInputStream(contentUri);
+                             FileOutputStream outputStream = new FileOutputStream(targetFile)) {
+
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                outputStream.write(buffer, 0, bytesRead);
+                            }
+
+                            if (mTermSession != null) {
+                                mTermSession.write(" " + targetFile.getAbsolutePath() + " ");
+                            }
+
+                            return true;
+                        } catch (IOException e) {
+                            if (TERMINAL_VIEW_KEY_LOGGING_ENABLED) mClient.logInfo(LOG_TAG, "Failed to save pasted audio to cwd: " + e.getMessage());
+                            return false;
                         }
+                    } else {
+                        String extension = "jpg";
+                        if (mimeType.contains("png")) extension = "png";
+                        else if (mimeType.contains("gif")) extension = "gif";
+                        else if (mimeType.contains("webp")) extension = "webp";
 
-                        return true;
-                    } catch (IOException e) {
-                        if (TERMINAL_VIEW_KEY_LOGGING_ENABLED) mClient.logInfo(LOG_TAG, "Failed to save pasted image to cwd: " + e.getMessage());
-                        return false;
+                        String fileName = "pasted_image_" + timeStamp + "." + extension;
+                        File targetFile = new File(cwd, fileName);
+
+                        try (InputStream inputStream = getContext().getContentResolver().openInputStream(contentUri);
+                             FileOutputStream outputStream = new FileOutputStream(targetFile)) {
+
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                                outputStream.write(buffer, 0, bytesRead);
+                            }
+
+                            if (mTermSession != null) {
+                                mTermSession.write(" " + targetFile.getAbsolutePath() + " ");
+                            }
+
+                            return true;
+                        } catch (IOException e) {
+                            if (TERMINAL_VIEW_KEY_LOGGING_ENABLED) mClient.logInfo(LOG_TAG, "Failed to save pasted image to cwd: " + e.getMessage());
+                            return false;
+                        }
                     }
                 }
             });
@@ -1111,19 +1187,21 @@ public final class TerminalView extends View {
         }
     }
 
-    private int mMaxBgWidth = 0;
-    private int mMaxBgHeight = 0;
-
     @Override
     protected void onDraw(Canvas canvas) {
         if (mBackgroundImage != null) {
             if (mBackgroundDstRect == null) {
                 mBackgroundDstRect = new android.graphics.Rect();
             }
-            if (getWidth() > mMaxBgWidth) mMaxBgWidth = getWidth();
-            if (getHeight() > mMaxBgHeight) mMaxBgHeight = getHeight();
-            
-            mBackgroundDstRect.set(0, 0, mMaxBgWidth, mMaxBgHeight);
+            int viewWidth = getWidth();
+            int viewHeight = getHeight();
+            int bmWidth = mBackgroundImage.getWidth();
+            int bmHeight = mBackgroundImage.getHeight();
+
+            int left = (viewWidth - bmWidth) / 2;
+            int top = (viewHeight - bmHeight) / 2;
+
+            mBackgroundDstRect.set(left, top, left + bmWidth, top + bmHeight);
             canvas.drawBitmap(mBackgroundImage, null, mBackgroundDstRect, mBackgroundPaint);
             // Draw 50% semi-transparent dark overlay (alpha 128 / 0x80)
             canvas.drawColor(0x80000000);
