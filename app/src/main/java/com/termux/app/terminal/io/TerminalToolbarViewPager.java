@@ -43,7 +43,9 @@ public class TerminalToolbarViewPager {
             View layout;
             if (position == 0) {
                 layout = inflater.inflate(R.layout.view_terminal_toolbar_extra_keys, collection, false);
+                layout.setBackgroundColor(android.graphics.Color.TRANSPARENT);
                 ExtraKeysView extraKeysView = (ExtraKeysView) layout;
+                extraKeysView.setBackgroundColor(android.graphics.Color.TRANSPARENT);
                 extraKeysView.setExtraKeysViewClient(mActivity.getTermuxTerminalExtraKeys());
                 extraKeysView.setButtonTextAllCaps(mActivity.getProperties().shouldExtraKeysTextBeAllCaps());
                 mActivity.setExtraKeysView(extraKeysView);
@@ -57,6 +59,7 @@ public class TerminalToolbarViewPager {
 
             } else {
                 layout = inflater.inflate(R.layout.view_terminal_toolbar_text_input, collection, false);
+                layout.setBackgroundColor(android.graphics.Color.TRANSPARENT);
                 final EditText editText = layout.findViewById(R.id.terminal_toolbar_text_input);
                 editText.setBackgroundTintList(null);
                 editText.setBackgroundColor(android.graphics.Color.TRANSPARENT);
