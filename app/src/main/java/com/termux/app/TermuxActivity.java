@@ -540,10 +540,9 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         terminalToolbarViewPager.setLayoutParams(layoutParams);
 
         if (mTerminalView != null) {
-            boolean showToolbar = mPreferences.showTerminalToolbar();
+            boolean showToolbar = mPreferences.shouldShowTerminalToolbar();
             int bottomPadding = showToolbar ? toolbarHeight : 0;
             mTerminalView.setPadding(mTerminalView.getPaddingLeft(), mTerminalView.getPaddingTop(), mTerminalView.getPaddingRight(), bottomPadding);
-            mTerminalView.setClipToPadding(false);
         }
     }
 
@@ -564,7 +563,6 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             }
             int bottomPadding = showNow ? toolbarHeight : 0;
             mTerminalView.setPadding(mTerminalView.getPaddingLeft(), mTerminalView.getPaddingTop(), mTerminalView.getPaddingRight(), bottomPadding);
-            mTerminalView.setClipToPadding(false);
         }
 
         if (showNow && isTerminalToolbarTextInputViewSelected()) {
