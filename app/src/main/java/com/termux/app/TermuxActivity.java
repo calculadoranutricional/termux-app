@@ -539,10 +539,24 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         layoutParams.height = toolbarHeight;
         terminalToolbarViewPager.setLayoutParams(layoutParams);
 
+        boolean showToolbar = mPreferences.shouldShowTerminalToolbar();
+        androidx.drawerlayout.widget.DrawerLayout drawerLayout = getDrawer();
+        if (drawerLayout != null) {
+            android.widget.RelativeLayout.LayoutParams drawerParams = (android.widget.RelativeLayout.LayoutParams) drawerLayout.getLayoutParams();
+            if (showToolbar) {
+                drawerParams.addRule(android.widget.RelativeLayout.ABOVE, R.id.terminal_toolbar_view_pager);
+                drawerParams.removeRule(android.widget.RelativeLayout.ALIGN_PARENT_BOTTOM);
+            } else {
+                drawerParams.removeRule(android.widget.RelativeLayout.ABOVE);
+                drawerParams.addRule(android.widget.RelativeLayout.ALIGN_PARENT_BOTTOM);
+            }
+            drawerLayout.setLayoutParams(drawerParams);
+        }
+
         if (mTerminalView != null) {
-            boolean showToolbar = mPreferences.shouldShowTerminalToolbar();
             int bottomPadding = showToolbar ? toolbarHeight : 0;
             mTerminalView.setPadding(mTerminalView.getPaddingLeft(), mTerminalView.getPaddingTop(), mTerminalView.getPaddingRight(), bottomPadding);
+            mTerminalView.updateSize();
         }
     }
 
@@ -554,6 +568,19 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         Logger.showToast(this, (showNow ? getString(R.string.msg_enabling_terminal_toolbar) : getString(R.string.msg_disabling_terminal_toolbar)), true);
         terminalToolbarViewPager.setVisibility(showNow ? View.VISIBLE : View.GONE);
 
+        androidx.drawerlayout.widget.DrawerLayout drawerLayout = getDrawer();
+        if (drawerLayout != null) {
+            android.widget.RelativeLayout.LayoutParams drawerParams = (android.widget.RelativeLayout.LayoutParams) drawerLayout.getLayoutParams();
+            if (showNow) {
+                drawerParams.addRule(android.widget.RelativeLayout.ABOVE, R.id.terminal_toolbar_view_pager);
+                drawerParams.removeRule(android.widget.RelativeLayout.ALIGN_PARENT_BOTTOM);
+            } else {
+                drawerParams.removeRule(android.widget.RelativeLayout.ABOVE);
+                drawerParams.addRule(android.widget.RelativeLayout.ALIGN_PARENT_BOTTOM);
+            }
+            drawerLayout.setLayoutParams(drawerParams);
+        }
+
         if (mTerminalView != null) {
             int toolbarHeight = terminalToolbarViewPager.getLayoutParams().height;
             if (toolbarHeight <= 0) {
@@ -563,6 +590,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             }
             int bottomPadding = showNow ? toolbarHeight : 0;
             mTerminalView.setPadding(mTerminalView.getPaddingLeft(), mTerminalView.getPaddingTop(), mTerminalView.getPaddingRight(), bottomPadding);
+            mTerminalView.updateSize();
         }
 
         if (showNow && isTerminalToolbarTextInputViewSelected()) {
