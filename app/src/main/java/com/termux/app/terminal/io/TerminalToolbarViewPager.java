@@ -58,6 +58,9 @@ public class TerminalToolbarViewPager {
             } else {
                 layout = inflater.inflate(R.layout.view_terminal_toolbar_text_input, collection, false);
                 final EditText editText = layout.findViewById(R.id.terminal_toolbar_text_input);
+                editText.setBackgroundTintList(null);
+                editText.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+                editText.setBackground(null);
 
                 if (mSavedTextInput != null) {
                     editText.setText(mSavedTextInput);

@@ -407,6 +407,8 @@ public final class ExtraKeysView extends GridLayout {
                     if (button == null) return;
                 } else {
                     button = new MaterialButton(getContext(), null, android.R.attr.buttonBarButtonStyle);
+                    button.setBackgroundTintList(null);
+                    button.setBackgroundColor(0x00000000);
                 }
 
                 button.setText(buttonInfo.getDisplay());
@@ -596,6 +598,8 @@ public final class ExtraKeysView extends GridLayout {
             if (button == null) return;
         } else {
             button = new MaterialButton(getContext(), null, android.R.attr.buttonBarButtonStyle);
+            button.setBackgroundTintList(null);
+            button.setBackgroundColor(0x00000000);
             button.setTextColor(mButtonTextColor);
         }
         button.setText(extraButton.getDisplay());
@@ -660,6 +664,8 @@ public final class ExtraKeysView extends GridLayout {
         if (state == null) return null;
         state.setIsCreated(true);
         MaterialButton button = new MaterialButton(getContext(), null, android.R.attr.buttonBarButtonStyle);
+        button.setBackgroundTintList(null);
+        button.setBackgroundColor(0x00000000);
         button.setTextColor(state.isActive ? mButtonActiveTextColor : mButtonTextColor);
         if (needUpdate) {
             state.buttons.add(button);
