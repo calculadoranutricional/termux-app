@@ -531,11 +531,20 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         final ViewPager terminalToolbarViewPager = getTerminalToolbarViewPager();
         if (terminalToolbarViewPager == null) return;
 
-        ViewGroup.LayoutParams layoutParams = terminalToolbarViewPager.getLayoutParams();
-        layoutParams.height = Math.round(mTerminalToolbarDefaultHeight *
+        int toolbarHeight = Math.round(mTerminalToolbarDefaultHeight *
             (mTermuxTerminalExtraKeys.getExtraKeysInfo() == null ? 0 : mTermuxTerminalExtraKeys.getExtraKeysInfo().getMatrix().length) *
             mProperties.getTerminalToolbarHeightScaleFactor());
+
+        ViewGroup.LayoutParams layoutParams = terminalToolbarViewPager.getLayoutParams();
+        layoutParams.height = toolbarHeight;
         terminalToolbarViewPager.setLayoutParams(layoutParams);
+
+        if (mTerminalView != null) {
+            boolean showToolbar = mPreferences.showTerminalToolbar();
+            int bottomPadding = showToolbar ? toolbarHeight : 0;
+            mTerminalView.setPadding(mTerminalView.getPaddingLeft(), mTerminalView.getPaddingTop(), mTerminalView.getPaddingRight(), bottomPadding);
+            mTerminalView.setClipToPadding(false);
+        }
     }
 
     public void toggleTerminalToolbar() {
@@ -545,6 +554,19 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         final boolean showNow = mPreferences.toogleShowTerminalToolbar();
         Logger.showToast(this, (showNow ? getString(R.string.msg_enabling_terminal_toolbar) : getString(R.string.msg_disabling_terminal_toolbar)), true);
         terminalToolbarViewPager.setVisibility(showNow ? View.VISIBLE : View.GONE);
+
+        if (mTerminalView != null) {
+            int toolbarHeight = terminalToolbarViewPager.getLayoutParams().height;
+            if (toolbarHeight <= 0) {
+                toolbarHeight = Math.round(mTerminalToolbarDefaultHeight *
+                    (mTermuxTerminalExtraKeys.getExtraKeysInfo() == null ? 1 : mTermuxTerminalExtraKeys.getExtraKeysInfo().getMatrix().length) *
+                    mProperties.getTerminalToolbarHeightScaleFactor());
+            }
+            int bottomPadding = showNow ? toolbarHeight : 0;
+            mTerminalView.setPadding(mTerminalView.getPaddingLeft(), mTerminalView.getPaddingTop(), mTerminalView.getPaddingRight(), bottomPadding);
+            mTerminalView.setClipToPadding(false);
+        }
+
         if (showNow && isTerminalToolbarTextInputViewSelected()) {
             // Focus the text input view if just revealed.
             findViewById(R.id.terminal_toolbar_text_input).requestFocus();
