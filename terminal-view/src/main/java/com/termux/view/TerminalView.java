@@ -335,11 +335,13 @@ public final class TerminalView extends View {
      */
     public boolean attachSession(TerminalSession session) {
         if (session == mTermSession) return false;
-        mTopRow = 0;
 
         mTermSession = session;
         mEmulator = null;
         mCombiningAccent = 0;
+
+        // The emulator's cached value will be read in `updateSize()` when emulator is set.
+        setTopRow(0, false);
 
         updateSize();
 
@@ -640,10 +642,9 @@ public final class TerminalView extends View {
         if (mEmulator == null) return;
 
         int rowsInHistory = mEmulator.getScreen().getActiveTranscriptRows();
-        if (mTopRow < -rowsInHistory) mTopRow = -rowsInHistory;
+        if (mTopRow < -rowsInHistory) setTopRow(-rowsInHistory);
 
         if (isSelectingText() || mEmulator.isAutoScrollDisabled()) {
-
             // Do not scroll when selecting text.
             int rowShift = mEmulator.getScrollCounter();
             if (-mTopRow + rowShift > rowsInHistory) {
@@ -653,12 +654,12 @@ public final class TerminalView extends View {
                     stopTextSelectionMode();
 
                 if (mEmulator.isAutoScrollDisabled()) {
-                    mTopRow = -rowsInHistory;
+                    setTopRow(-rowsInHistory);
                     skipScrolling = true;
                 }
             } else {
                 skipScrolling = true;
-                mTopRow -= rowShift;
+                setTopRow(mTopRow - rowShift);
                 decrementYTextSelectionCursors(rowShift);
             }
         }
@@ -671,7 +672,7 @@ public final class TerminalView extends View {
                 // of one row at a time.
                 awakenScrollBars();
             }
-            mTopRow = 0;
+            setTopRow(0);
         }
 
         mEmulator.clearScrollCounter();
@@ -764,7 +765,7 @@ public final class TerminalView extends View {
                 // e.g. less, which shifts to the alt screen without mouse handling.
                 handleKeyCode(up ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_DPAD_DOWN, 0);
             } else {
-                mTopRow = Math.min(0, Math.max(-(mEmulator.getScreen().getActiveTranscriptRows()), mTopRow + (up ? -1 : 1)));
+                setTopRow(Math.min(0, Math.max(-(mEmulator.getScreen().getActiveTranscriptRows()), mTopRow + (up ? -1 : 1))));
                 if (!awakenScrollBars()) invalidate();
             }
         }
@@ -1181,7 +1182,19 @@ public final class TerminalView extends View {
             if (mTerminalCursorBlinkerRunnable != null)
                 mTerminalCursorBlinkerRunnable.setEmulator(mEmulator);
 
-            mTopRow = 0;
+            // Restore cached top row value if session/emulator was switched back from a
+            // different session or after activity restart. The top row value also needs to be
+            // maintained after opening/closing soft keyboard.
+            int topRow = 0;
+            if (mEmulator != null) {
+                int rowsInHistory = mEmulator.getScreen().getActiveTranscriptRows();
+                int cachedTopRow = mEmulator.getTopRow();
+                if (cachedTopRow >= -rowsInHistory) {
+                    topRow = cachedTopRow;
+                }
+            }
+            setTopRow(topRow);
+
             scrollTo(0, 0);
             invalidate();
         }
@@ -1258,8 +1271,15 @@ public final class TerminalView extends View {
         return mTopRow;
     }
 
-    public void setTopRow(int mTopRow) {
-        this.mTopRow = mTopRow;
+    public void setTopRow(int topRow) {
+        setTopRow(topRow, true);
+    }
+
+    public void setTopRow(int topRow, boolean updateEmulator) {
+        mTopRow = topRow;
+        if (updateEmulator && mEmulator != null) {
+            mEmulator.setTopRow(mTopRow);
+        }
     }
 
 
