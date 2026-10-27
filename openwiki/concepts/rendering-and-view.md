@@ -3,9 +3,6 @@ type: concept
 title: Terminal View & Rendering
 description: UI rendering, touch gestures, touch input handling, and text selection in terminal-view.
 tags: [terminal-view, rendering, gestures, text-selection, ui]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
 sources:
   - id: openwiki-source-41513c8b69c3676c80d7e986
     resource: repo://terminal-view/src/main/java/com/termux/view/GestureAndScaleRecognizer.java
