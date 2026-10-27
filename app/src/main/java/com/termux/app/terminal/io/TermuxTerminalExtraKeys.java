@@ -5,6 +5,7 @@ import android.view.Gravity;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.termux.app.TermuxActivity;
@@ -100,9 +101,25 @@ public class TermuxTerminalExtraKeys extends TerminalExtraKeys {
             TerminalView terminalView = mTermuxTerminalViewClient.getActivity().getTerminalView();
             if (terminalView != null && terminalView.mEmulator != null)
                 terminalView.mEmulator.toggleAutoScrollDisabled();
+        } else if ("F".equals(key)) {
+            showFunctionKeysPopup(view, ctrlDown, altDown, shiftDown, fnDown);
         } else {
             super.onTerminalExtraKeyButtonClick(view, key, ctrlDown, altDown, shiftDown, fnDown);
         }
+    }
+
+    private void showFunctionKeysPopup(View view, boolean ctrlDown, boolean altDown, boolean shiftDown, boolean fnDown) {
+        if (view == null || mActivity == null) return;
+        PopupMenu popupMenu = new PopupMenu(mActivity, view);
+        for (int i = 1; i <= 12; i++) {
+            popupMenu.getMenu().add(0, i, i, "F" + i);
+        }
+        popupMenu.setOnMenuItemClickListener(item -> {
+            String fKey = "F" + item.getItemId();
+            super.onTerminalExtraKeyButtonClick(view, fKey, ctrlDown, altDown, shiftDown, fnDown);
+            return true;
+        });
+        popupMenu.show();
     }
 
 }
