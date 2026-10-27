@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:bd4a32e34a86e6eea2ab96588675c5c5da88015588143362964eef9c2df0b49d",
+  "claims": [
+    {
+      "id": "claim_fd0ccbe8fd9c440a9d6a4806bacafaa5",
+      "statement": "TermuxApplication initializes global crash handling, logging, package properties, shell management, file directories, and shell environment variables upon startup.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/com/termux/app/TermuxApplication.java#L24-L74",
+          "version": "repo-lines-v1:sha256:06a51be1e5e4fa04228bd0a4ed744c089e20597f3ecec12efe86c74955b9a679:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkzYmQwOTMxMWU3NWM5YjBkZTNkMDk3MDAyYWIwMGVmYmNiYWI1M2UyYzJkNjIyOTc0NzBhYTc4MzBlODc2NTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJmYzFkMzYwZTUxMDRlNmJhMzQ3NWZkMDYyMjE3NWI5YmFjZjAzMjVhMzdmODgzZjZhNzViMWVlNTQxOGI1MDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBiMmVlMjI1NDcwM2FmMGMyYjViMDcxZmQxYmJkOWQxY2U5OWE2MTQwYzE3OTdkNThiZjdlYjgyODRiOGMzOGIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d678451db59849b380bc9c4e261a0287",
+      "statement": "TermuxService operates as a foreground service maintaining terminal sessions and background tasks across activity lifecycles while holding wake and wifi locks.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/com/termux/app/TermuxService.java#L55-L123",
+          "version": "repo-lines-v1:sha256:2498daca8352194dc610362aff753faf3efe29ad988fd98e3a911796d8ce7ed1:eyJzZWxlY3RlZExpbmVDb3VudCI6NjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE1ZDY1MmMyODNiNDUzMjE3OWVkNTE3ZjE5YjIzNTVlOGU5MWMwY2NiMTAzMWY5YjhmOTg1Y2Y3N2IxNTU1MjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE4ZDc4YmU1NWQ5YjM0ZWNmM2ZmNTAxNzE2ZjJhODgwZjE1NzUwYTQwNjg1OGZjY2VkMjNhNjZiN2MxMGMwYWYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_152f361d8efb4548b6ee7c7c6aec043f",
+      "statement": "TermuxActivity binds locally to TermuxService, manages the terminal view hierarchy, extra keys, session list controllers, and activity session clients.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/com/termux/app/TermuxActivity.java#L80-L105",
+          "version": "repo-lines-v1:sha256:1f97a335cd4a30a290ec6f871da8bb9cfe6f41a25d1ea679dde4612e31e76998:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA3MTZiMDQ0Zjk2MjM0ODA3MWU0MTM1ZDIxZDEwN2E1ZDVkMzU1NzUxMTY5ZjNiNDc5NzFlY2EyOGRlM2M3NDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzN2MyMDlmZmM5YzVhZTBhMDU2YmQwZTA4N2U0YjI0OGRhZjNiN2Y3NmFjMjY5N2FkMzIyYzc4ZTUwNDM4OTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM4OWI4YmYxYzkxNWNmNDZkMGJhM2Q1ODY5YTFjZjkxZmNlNjdlMzQ5OGZkNzQxNDg0ZTEyZmE5YmU2ZWFkZDgifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-26T20:00:32.746Z"
+  }
+}

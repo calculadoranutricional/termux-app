@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:ae6a789ba441011102e839780228aba6cd5f35e6213aa41151e5132a26e05ea9",
+  "claims": [
+    {
+      "id": "claim_57815fb382c2485ba2b6288b8164a072",
+      "statement": "The Termux project is structured as a multi-module Gradle project comprising :app, :terminal-emulator, :terminal-view, and :termux-shared modules.",
+      "evidence": [
+        {
+          "resource": "repo://settings.gradle#L1-L1",
+          "version": "repo-lines-v1:sha256:3391c5710bc361853cdeca22e718cd74c978d504ec5e771497e025f4ba98f38b:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzM5MWM1NzEwYmMzNjE4NTNjZGVjYTIyZTcxOGNkNzRjOTc4ZDUwNGVjNWU3NzE0OTdlMDI1ZjRiYTk4ZjM4YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzM5MWM1NzEwYmMzNjE4NTNjZGVjYTIyZTcxOGNkNzRjOTc4ZDUwNGVjNWU3NzE0OTdlMDI1ZjRiYTk4ZjM4YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1a93c7177f83431a915e2865e7bcb0c6",
+      "statement": "Termux is an Android terminal application and Linux environment providing user interface and terminal emulation while relying on termux-packages for installable packages.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L10-L12",
+          "version": "repo-lines-v1:sha256:f25cff78ed64ebd1c4f9a98b2eda4df34b5396f593ba3f5f7b4784982605f418:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg0NGIxMDNkMmRmNTE5MmJhODVhNzgzNWY3OWM2YjEyMjE1MWIzNTVkNzVhOTZhZGM4MThiMmVhMWE5NjcyMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2Q5MGVlODQyZTE1M2E1NzQ2MjYxNzZiNjNlYmI2MmM2YWViOTQ0NmNiZTJhODZjYmJhMjg2NmY5YTE4YjQ4NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjgwNDQxZmJjMjE2YWNmMjc5ODU0MjIxMDUzYzc3NjRmZmIwMmZmMGJlNDdiMDliY2RkZjUwYjMyMmRjZGQ0OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjYxYzQ1MGIwMGZmYmJkMWRiYjA2OGU5ZGVkZjU0Y2YyMTcxNWZiNTFjMTY0OTdjMWRhOWUwMjhlMWI1NzMwNCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-26T20:00:32.746Z"
+  }
+}

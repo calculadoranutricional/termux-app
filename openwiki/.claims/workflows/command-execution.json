@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:65f7808e7e4e5af416cdd875900ce406b2e7b17501a6975a7fef9ded7ae414e8",
+  "claims": [
+    {
+      "id": "claim_4214f1ba43214ea9908310dcf4cdac7a",
+      "statement": "RunCommandService receives ACTION_RUN_COMMAND intents from third-party apps, validates the allow-external-apps policy, sanitizes arguments and executable paths, and forwards valid execution commands to TermuxService.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/com/termux/app/RunCommandService.java#L36-L140",
+          "version": "repo-lines-v1:sha256:bbd41c3db2bf1081ab9d61595bad820e763896bb262aa65a3903ca80a36ec068:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlMzgyOGMzYWFjMGVjNDc3ZDY2NThhZTk0ZWU3NzEwNjU5MjBlNmI5ZjI2NjcxMjkwM2Y3ZWE1N2UzMmI4Zjc4IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI1NDc0YWVkMjE3ZWRhNDZjODA0ZDc1YjMyY2RlNjRhOWY4OWQwNmMzZjQ3MWEzYWEyMGVjMmEwNDhkODVmMzY5IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwNjU2YTI3YWQyOTA2Yzk1ZTFkNjRmMzA4N2EwZDgxYzJiMDIyMTM1ZDYxZGFiMWE1ODdmNjgxZjdlMDgzNDk1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIxNjBhYmY1NWFjOTYyNGNkMWEzMjQ0ZTNkOWZlYWU5MGI3Zjg4MjVlMTU2YTdkZTAwMjI1ODQ3YTUyZDQ0NjdhIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_dd52e677d6934181907dc16057a35a26",
+      "statement": "RunCommandService resolves canonical executable paths, validates file existence and execute permissions, supports comma alternative replacement for am command arguments, and configures asynchronous result reporting via PendingIntent or result directories.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/com/termux/app/RunCommandService.java#L141-L253",
+          "version": "repo-lines-v1:sha256:af598eb9d04ed7e010eeb13e4726bf0229dfecb22b25e788b5720ca2c700370d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkNmQzZGNhZjNiY2U2YjNkZDFhZThlMGRlYzYyN2ExMDU2MzdjZTJhMWQ3NTk0YjcxNTdjOTAyN2IxNmRkYzg5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIxNzBiNjBhNjViNGVjZTY1ZDgzMmNhZDg0OTBjYmIxZjBhZmQ0NjY0NDRmYjFiODA4YjAxMWJlM2IyYjM2YTcwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0YTU2MTQ1ZTcxMjQ5MjM4Yzg3MjQwYzNkYjBhNTAwYTkxNTNjYTI1NTk4ZDYzMmJhOGM1MjNiY2FkNWQxZTc3In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_ffae807897c24e4f8d8f77992646b019",
+      "statement": "AmSocketServer runs an AF_UNIX local socket server that accepts local client connections, parses am command strings using ArgumentTokenizer, and executes them via the termux-am-library.",
+      "evidence": [
+        {
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/shell/am/AmSocketServer.java#L32-L125",
+          "version": "repo-lines-v1:sha256:c30ee0a80bd93f20a398323a4361476e130692484abed0519d592b4e1a69af5d:eyJzZWxlY3RlZExpbmVDb3VudCI6OTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjljNDE0YzRkYjdiOTk1YjQ0ZmZkMzA2MWU0YWUwMTYwZDc1ZWRlODI4OGU4OTcxOWI5NmI1N2NmNDZjMDQ5ZWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdhNWMyYWFjMDg0NDg1NjAyODk5ZDM1N2I5MTkwZjc5MTk2YTEwYzk1NWM4YjQzY2UzY2ZjYTQzZDc4OTQ2NGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dab37e85a3bd4a1b8036dc9c6f6a9076",
+      "statement": "AmSocketServer serializes command execution results back to local clients using the null-byte separated format exit_code\\0stdout\\0stderr\\0.",
+      "evidence": [
+        {
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/shell/am/AmSocketServer.java#L126-L152",
+          "version": "repo-lines-v1:sha256:f472faa348c4178c95ebb0bfee601877742e3f016cec52ecce08c0314b5560de:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEwODI1NDBiYjQwNjhkNzQyYzM0N2IyMGFiZGZlMTVhNjI5MTRhNTdjY2VlM2IxNjA1ZGY5NmM2MjJjMTMxZmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIwMDViMzc0YmQyMDlkMjQ5OTQwYmMwYWIzZDNkNWZhNTQwNWFlNTBhYzQyM2UyZmRiNWU1YmY3NWVmMTRlMDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_43c5acbbcc3e40b78d2d21b1c0bb22bc",
+      "statement": "TermuxService acts as the central foreground service managing TerminalSession instances and background AppShell tasks, coordinating wakeup locks and service lifecycles.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/com/termux/app/TermuxService.java#L68-L150",
+          "version": "repo-lines-v1:sha256:76e09d34200ab38c1c170156232a8501e987c74df805bdd63cf9133eacd9eb19:eyJzZWxlY3RlZExpbmVDb3VudCI6ODMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhMDM2ZjNiMTE5ZGMwOTY1OWRjYTg2Y2UwNTAxMWY1ODU2NGJkOWUwMjE1ZTNlM2QzNmU1Y2JlN2ExMDY5MzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExMDk2ODEyOWIyZGNiMGUyNTcyMDNhYjJkZTUzZWEwZGQ1Y2UyMDliYzlhYzI1MDdiNTUzNzBkMWI3ZGU0NTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE3NDkyNTdlOTljY2FjYzRjYzJhMDQ1MWZjODMyYzFhYzQzODg4NmYzZGViZjQ1YTBiYmVkODgwMDY5MjhkMDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2NDUyMTgwYzYxZDIwNjY2ZTkzNzgwMmI3Yjg1OTJlYThhYzJjZTgxNGMzZDQ5YjUwNjYyMjZiNGM1YWRlYTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_32b2b7e6848d4ce080d9ba7be76fa8a2",
+      "statement": "TermuxShellEnvironment and related environment providers set up essential environment variables such as PATH, HOME, TMPDIR, and PREFIX for all spawned shell commands.",
+      "evidence": [
+        {
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/termux/shell/command/environment/TermuxShellEnvironment.java",
+          "version": "repo-file-v1:sha256:56e5db2fabf1361564935dfd1955ca819bcce63fd57e606b8063f87c13c7b1a2"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-26T20:00:32.746Z"
+  }
+}

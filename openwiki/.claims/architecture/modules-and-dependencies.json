@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:ab985c20905c231cf37cc079afa37148ee5b41dcf03bbd4be6787b8d9da99f9b",
+  "claims": [
+    {
+      "id": "claim_1cfa40f893c24e5b9a412de834d1cc49",
+      "statement": "The project is structured into four Gradle modules: the application module (:app), which depends on :terminal-view and :termux-shared.",
+      "evidence": [
+        {
+          "resource": "repo://app/build.gradle#L39-L40",
+          "version": "repo-lines-v1:sha256:f2ad83ea7295d44d0a4b1b1a6674588982d841c1f713c5a52def4477f0c2632f:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTAwZjFhMGM2ZDRmOTM1M2FkNjg3NDZjYzBhNTRlZjE2Njc5ZTBhYjM1MWE3NTE1YTU3MmVkZDJjZTJlYmY3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGVmOGE5YmFlMDhkNDNhYjUzYTM3NmMxYTcwMTg5ZGMyMWVhNWUyN2MxM2U1ZDYzMzVlYTI4NmYwNDNmZTcxNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTdjN2ZmZjJhZmFiMGRlZDk0YjgyM2Q3ZGU2YjI5NWYxZGU4NWVkZDFiMDljNmU5YzJkOTFiY2U5NjJlNjA2MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2JhYzU2NWRkZGVhMzQxYzA3NWM2ZWQwMjJmODU0ODRjOWViNzE3MTJhOTkyZDIzMDdlZGIxNzE2MDUxNDhiNSJ9"
+        },
+        {
+          "resource": "repo://settings.gradle",
+          "version": "repo-file-v1:sha256:3391c5710bc361853cdeca22e718cd74c978d504ec5e771497e025f4ba98f38b"
+        }
+      ]
+    },
+    {
+      "id": "claim_e1cd48628c194a29ae4fd2201988c426",
+      "statement": "The :terminal-view library module provides terminal UI rendering and uses an api dependency on :terminal-emulator.",
+      "evidence": [
+        {
+          "resource": "repo://terminal-view/build.gradle#L5-L10",
+          "version": "repo-lines-v1:sha256:4d3bd54b6468378f33e9bcc204e5c6770dcdb5611976434100cdfb83efe5d29f:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODc1OGJkNzYyNzcxNzM3MjU4OTFkNjZmMzQwMzBmN2NhYjIyOGZkNDFjZmMwZjc3ZGI4NDNhY2ZlOGE5OGNiMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTZlNjM0NDRjNWEzYWNlYjE5OWJkNmQ4ZTMwYjkxZDg5NTAxYjBmZTNiMTA5MzkyNmEwNDViM2UzODQ3ZmUyOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzhkYzcwMjk1OTE5ODBkY2ZjZjY4MGMzZDg4NjE1NDI5NzczNDVjMzM0MTc0M2NkZTUxNWQ2Njc5MDkxYWJjYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2JhYzU2NWRkZGVhMzQxYzA3NWM2ZWQwMjJmODU0ODRjOWViNzE3MTJhOTkyZDIzMDdlZGIxNzE2MDUxNDhiNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f6098a8f088c4889ae9880c6956d22ae",
+      "statement": "The :termux-shared library module provides shared utilities, bootstrap configuration, and execution helpers, depending on :terminal-view, AndroidX libraries, hiddenapibypass, commons-io (pinned to 2.5), and termux-am-library.",
+      "evidence": [
+        {
+          "resource": "repo://termux-shared/build.gradle#L4-L32",
+          "version": "repo-lines-v1:sha256:47089e0ba43f787eae2b895436c6a099139bfe746aa34c98d0bac2057e47ce07:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE3MzM4MTNlNDAxMmQ3MmRlZmQxYTIwMmEzMDU3YWRjMjI2Mjc4ZDUwYzg5Njg2NjQxM2M5ZGVhNGVhNDQwOGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzYzMxNzBhNDYwNzEzYTg1YzVhNGM1MmU4MmQ3N2RmNmIyZGU1YzQzYzhkMDI1Y2JiMWViNjgyNDdiMTVmNDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIzMzJlNTAyZmVhYTBkMjkxN2U4OTg0M2E4YTM2ZmExMDdhNTY3NDEwMzE0Y2Q3YTg0MzliZTM2YWJjZTRhMTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_de29a803ddf848aca4dc9ed81f293653",
+      "statement": "The :terminal-emulator module contains pure Java and JNI native code for ANSI/DEC VT terminal state machine emulation without upstream project dependencies.",
+      "evidence": [
+        {
+          "resource": "repo://terminal-emulator/build.gradle#L4-L23",
+          "version": "repo-lines-v1:sha256:353a4791f2ad308273bcd8d6cc15df549e96c6caa52c9b9e33da2fd9c0494d48:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE3MzM4MTNlNDAxMmQ3MmRlZmQxYTIwMmEzMDU3YWRjMjI2Mjc4ZDUwYzg5Njg2NjQxM2M5ZGVhNGVhNDQwOGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUzYzMxNzBhNDYwNzEzYTg1YzVhNGM1MmU4MmQ3N2RmNmIyZGU1YzQzYzhkMDI1Y2JiMWViNjgyNDdiMTVmNDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNkZWRkOTAxYWE1MGNkM2VhMGE0ZjY1NDMyY2MxZjViOWQ4MzkwYWViMDU4Njg2MjNkY2ZiMzJmMTM4M2VhNGEifQ"
+        },
+        {
+          "resource": "repo://terminal-emulator/build.gradle#L62-L65",
+          "version": "repo-lines-v1:sha256:68f88948641d7077b0ff31f4715e6695d78db6e4e674886c23f7dcec92f46969:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2JhMzE0NWFlZTBkYTA1OTI0ZDNhZDBiMWVlYjRhZGU3NzYxYjY2N2Q4YTk2MTQ2ZGVlZjM5YWJkMWNlNDhjYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTllNzYzNTVjZjExOTk0ODBjM2Y5OTgzNmIxNDg2Yzg0MWQ4OTFmYWFkOTA0YzYwOGUwOTMwMjJkMzc1N2FlZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTMxZjY2MGExODRkNGIyMTgwNDRkM2VjMTIzMTAyYTFjZTliYzBkMjFlMmYxOGNkYWZiMTJkYmEwYjRhNDcxOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_639c593ebb3a4447af6fde4c7dfca239",
+      "statement": "Global project SDK versions are centralized in gradle.properties with minSdkVersion 21, targetSdkVersion 28, compileSdkVersion 36, and ndkVersion 29.0.14206865.",
+      "evidence": [
+        {
+          "resource": "repo://gradle.properties#L18-L22",
+          "version": "repo-lines-v1:sha256:7b5b306148b193ea1b6113afe26503ca04bd847cde911ff69e401373b104d81d:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzI4YTg3NDUzYmE0ZDIwNjIxN2ZmODZlODI1NmQ2YmQ3NWY0Nzg5ZWY2NWVhMTg2Mjg2ZTY2MTkyYTZiYjhjMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTE2ZGY4YTY0ZDEyYzc1NTUwMmZjZDcyYTFjYzdkOTNiNzk0ZTg1OWRjYmYyNjE4Y2M5N2JlZDFiMmJiN2I2MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZmM1YzVmMjkxZGIxZDE4MDdkNzQ1MWY1MWNmYmMzOTNlYjQzNDE5MzJlMWMxYjAyMDg1ODc2MWY3YmY3NTJlMCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-26T20:00:32.746Z"
+  }
+}

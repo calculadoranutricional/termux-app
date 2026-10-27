@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:bbb58cb78b9e088a80bc3d5950dece598c2740db64b48c54c9dfc20c4b730ad9",
+  "claims": [
+    {
+      "id": "claim_2afa0cf60f2042578f9d3f8cfeb5a2a4",
+      "statement": "TerminalEmulator implements the core ANSI/VT terminal state machine handling escape sequences including CSI, OSC, DCS, and APC.",
+      "evidence": [
+        {
+          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/TerminalEmulator.java",
+          "version": "repo-file-v1:sha256:5510c124feb5f863c87683a426738dfed500b273d2b4e467d10ee63ce9b1ca7b"
+        }
+      ]
+    },
+    {
+      "id": "claim_080a7b2c615c47758463d49a503f76a4",
+      "statement": "TerminalBuffer manages screen rows, scrollback history, and reflowing during terminal resizes.",
+      "evidence": [
+        {
+          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/TerminalBuffer.java",
+          "version": "repo-file-v1:sha256:36de5bd628926dd03ce4f9684cabf463b9e1553df471c561c3ef2c3828618cc6"
+        },
+        {
+          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/TerminalRow.java",
+          "version": "repo-file-v1:sha256:918e709de8e66879f2aec22eb22f4b1dc76bb6cd43616d45f8d2f85a433837f9"
+        }
+      ]
+    },
+    {
+      "id": "claim_21d9aede2c554d71a553f5dda3558d8f",
+      "statement": "WcWidth calculates the display width of Unicode code points to ensure proper column alignment and multi-column glyph handling.",
+      "evidence": [
+        {
+          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/WcWidth.java",
+          "version": "repo-file-v1:sha256:68fc84a28813b13e4a1dfec8d9acbd9d7bd2a6cea62fe2f38319d1eca6cca776"
+        }
+      ]
+    },
+    {
+      "id": "claim_44f6e7db8fe44b599d64cfda6e905819",
+      "statement": "KeyHandler translates Android input events and key combinations into terminal control sequences and byte streams.",
+      "evidence": [
+        {
+          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/KeyHandler.java",
+          "version": "repo-file-v1:sha256:78688caed123d644f49cdaee2515849b704a6be29e00e6e865179e358b5f1eee"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-26T20:00:32.746Z"
+  }
+}

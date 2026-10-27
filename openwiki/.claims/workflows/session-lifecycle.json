@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:1c4d788cbb82075c72a2259553ad14ac873b8b9797255cfacfbf943e93d1dc79",
+  "claims": [
+    {
+      "id": "claim_6ffd80078b1e4a96a95f727c7975eabc",
+      "statement": "TermuxService manages foreground terminal sessions and ensures persistence via Android foreground service APIs while TermuxInstaller verifies bootstrap files.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/com/termux/app/TermuxInstaller.java#L41-L65",
+          "version": "repo-lines-v1:sha256:f76003b1f3cb164bede18258971d1ea9a8ab2c64517f1a6775bae5d68ac6732a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI0MWE2MjI1YzE3NjBlNzBkYzEyMzhhZmM3NDBjZDYyMTBhMWNhMjU4ODY1NjA5OTc0ODE2NTBjZDFlNGI1NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZhYTc3MjJlMDI3YWEyN2VjNTAxMjlhM2FkOGE0ZGQ4YTJkNjZlZGEyMGFmYmZmYmY4YzZjZDRkMTJhNzcyMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzMGI0Y2U5ODc2ZTE3NDE1YmViNTY2NWIxNzc5Zjg5MTliYzY3MmRjMTM0NWUzN2Y3YjViY2FjODdlYjUzMDIifQ"
+        },
+        {
+          "resource": "repo://app/src/main/java/com/termux/app/TermuxService.java#L55-L70",
+          "version": "repo-lines-v1:sha256:e8b928fcd36d51410375d1a2c32593c36648ae065ba57d2aae72ac72ceb68f2c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3ZmI5NDVlNDk1NDIwNWI0YjMyZWIxYjBhZjc0ZTI0MmMxYjliZjFjZTMyNzgyMjA1YzczYTM2MzNiOTNhNDMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE1ZDY1MmMyODNiNDUzMjE3OWVkNTE3ZjE5YjIzNTVlOGU5MWMwY2NiMTAzMWY5YjhmOTg1Y2Y3N2IxNTU1MjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQzYzdhOTdmOGRiODZlNzYzMmVjYzZkYmU0NGQxZDJkZWM5ODkyYmE5NjQyZWQzMWVhYjE5OGZhMzg0M2MyNGMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a5a1c90e63e5484eb987e6c522a6f1af",
+      "statement": "TermuxSession bridges ExecutionCommand preparation with TerminalSession creation, configuring shell environment and arguments.",
+      "evidence": [
+        {
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/termux/shell/command/runner/terminal/TermuxSession.java#L77-L165",
+          "version": "repo-lines-v1:sha256:ab93f3bfa08843af8e94113a42d91556c799a6cf94f18c92da1636e1e2702e0c:eyJzZWxlY3RlZExpbmVDb3VudCI6ODksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2MTMwYThiY2QzYmY1ODkxMTE4YmU0NDhiNjE3MTNmZWZhNDhiOGNhMTM0OTM0N2E4Yzg0MzRjZWRiZTBiZjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkYjAyZWMwODBmMjdmMmY5OTg0YTkxMGEwNzkwOTUyZTVjNGRjOTA0MjBjMmQ2NGIxNGUxNDM0ZWEwMjVmMjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjllYjM5OTc3MDYzNmNiZTU3YzU2YzkwMjM5Y2RmOTIzODc5YTI0YTE3YmFmMzRiMDUwOTliYTZjODg4Y2NjOTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_11b376608b024286aa47d1c2b27c033e",
+      "statement": "TerminalSession manages native subprocesses via JNI, pseudo-terminal file descriptors, I/O queues, and process termination handling.",
+      "evidence": [
+        {
+          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/TerminalSession.java#L20-L68",
+          "version": "repo-lines-v1:sha256:32f20e8f6b3ef285f8c7f671c2662844cc1ac651da76a26b6a1e5ecdab931127:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVhZjIyY2YwNzMyNTkyYzI0NzE0MWNiZTYxZWZhMTEwMTI2MTJmNWEzMTIyYjlhZjliYmFmNTJmNTcyNGQxOTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3NDQyMDgxZmY3M2RkYjJlODE5Yjg3NmZjZGMxZWYxNzljYmI4ZDZiMTlkMWM1MTAwZDQ5M2M4OTMyZDcyNTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVjNmNlOWViYzMzMjI1NzU4OTQxMWIxNDY5MzhkNGUxYmMyNzc3ODI5MWRlNGE5ZjIxZTRjMDg0OTZkOTRlZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU0ZGVlY2JhYTNhZWUwNmRkMWNkMjM4ZGVkODVhOGE0MmI3NDI0YWZlYTUwODM5OTAyNDFiYWMxMDQwYmJhYjIifQ"
+        },
+        {
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/termux/shell/command/runner/terminal/TermuxSession.java#L176-L234",
+          "version": "repo-lines-v1:sha256:c6ef608c9d7c97527b08fed117e41726dd599ac8d2d7efedddd1a9903b980b31:eyJzZWxlY3RlZExpbmVDb3VudCI6NTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1MmVkY2I5OGVjZjNlNmI3NjUxNjdhMzM5NWU0MmIzMmIzYjQzNDBiZTRlODAxN2M4ZTFlZWM2NDlhNjU1MjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkZDI5ZWI1ODdkODhmOGEwYmZlYzU4NzkzZGU5NmNjMDk4NjQ4ZTJiNzE3OTgwNWI3NTM0ODI4NzZjNWQ2NGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVhNDdlZDE3OTBmOTBlMjk5YTExYTZmY2E5YTkxMTVhMjk1OWJlYjc0NjU4MDYyMTE2NmFhZGNiN2JjMWViMGYifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.2",
+    "at": "2026-10-26T20:00:32.746Z"
+  }
+}
