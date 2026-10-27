@@ -3,9 +3,6 @@ type: workflow
 title: Command Execution Workflow
 description: Execution of external commands, RunCommandService intent handling, AmSocketServer integration, and shell environment setup in Termux.
 tags: [command-execution, run-command, service, am-socket-server, shell, environment]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
 sources:
   - id: openwiki-source-1a7e7770a500543df9b470fe
     resource: repo://app/src/main/java/com/termux/app/RunCommandService.java

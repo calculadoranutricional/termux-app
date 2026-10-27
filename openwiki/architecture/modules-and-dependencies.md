@@ -3,9 +3,6 @@ type: reference
 title: Modules and Dependencies
 description: Detailed breakdown of the multi-module project structure, Gradle configuration, and inter-module dependencies in Termux app.
 tags: [gradle, modules, dependencies, android, architecture]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
 sources:
   - id: openwiki-source-ba5e180102dd55751678e7a4
     resource: repo://app/build.gradle

@@ -3,9 +3,6 @@ type: concept
 title: Terminal Emulation Engine
 description: Core terminal emulation engine, buffer management, character width calculations, and escape sequence processing.
 tags: [terminal-emulator, vt100, ansi, csi, osc, screen-buffer, character-width]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
 sources:
   - id: openwiki-source-972b33d2e5c9563651112440
     resource: repo://terminal-emulator/src/main/java/com/termux/terminal/KeyHandler.java

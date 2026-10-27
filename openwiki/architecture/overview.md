@@ -3,9 +3,6 @@ type: architecture
 title: System Architecture Overview
 description: High-level system architecture, component topology, processes, and service lifecycle of Termux-App.
 tags: [architecture, overview, termux, android, service, activity, lifecycle]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
 sources:
   - id: openwiki-source-c8d0e1f25d0be9ba898acecd
     resource: repo://app/src/main/java/com/termux/app/TermuxActivity.java

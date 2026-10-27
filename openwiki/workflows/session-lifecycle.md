@@ -3,9 +3,6 @@ type: workflow
 title: Terminal Session Lifecycle
 description: End-to-end flow of terminal session creation, background execution, and destruction across TermuxService, TermuxSession, and TerminalSession.
 tags: [terminal, sessions, lifecycle, process, termux-service]
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
 sources:
   - id: openwiki-source-a415d149a774e98b0aef0b0d
     resource: repo://app/src/main/java/com/termux/app/TermuxInstaller.java
