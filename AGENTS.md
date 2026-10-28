@@ -10,6 +10,21 @@ In repositories indexed by CodeGraph (a `.codegraph/` directory exists at the re
 If there is no `.codegraph/` directory, skip CodeGraph entirely — indexing is the user's decision.
 <!-- CODEGRAPH_END -->
 
+<!-- CONTEXT_MEMORY_START -->
+## Memoria de Contexto y Aprendizaje (CONTEXT.md)
+
+En la raíz del repositorio existe el archivo `CONTEXT.md`, el cual funciona como la memoria técnica a largo plazo de problemas, errores superados, particularidades de la arquitectura y soluciones ya validadas.
+
+- **Antes de diagnosticar o modificar**: Consultar obligatoriamente `CONTEXT.md` para verificar si un problema similar ya ocurrió y cuál fue su resolución comprobada.
+- **Al resolver un error o bug no trivial**: Registrar de inmediato la entrada en `CONTEXT.md` siguiendo la estructura:
+  - **Fecha / Componente**
+  - **Error o Síntoma** (mensajes de error exactos de Gradle/Javac/CI/Logcat)
+  - **Causa Raíz** (por qué falló)
+  - **Solución / Código de reemplazo** (cómo se corrigió)
+  - **Regla Preventiva** (qué hacer para no repetir el error)
+- **Auto-mejora continua**: Los agentes tienen la instrucción explícita de mejorar la skill `.agents/skills/context-memory/SKILL.md` si descubren formas más eficaces de organizar, validar o documentar la memoria del proyecto.
+<!-- CONTEXT_MEMORY_END -->
+
 <!-- OPENWIKI:START -->
 
 ## OpenWiki
