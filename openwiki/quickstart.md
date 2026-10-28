@@ -3,6 +3,9 @@ type: concept
 title: Quickstart & Wiki Navigation
 description: Central routing and task-oriented overview for the Termux App code wiki.
 tags: [quickstart, navigation, routing, architecture, terminal]
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-10-28T02:32:52.279Z
 sources:
   - id: openwiki-source-23775c3de52f3ab95a13cb8b
     resource: repo://README.md
