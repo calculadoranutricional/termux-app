@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.termux.R;
 import com.termux.app.TermuxActivity;
 import com.termux.app.TermuxService;
-import com.termux.shared.activities.AppCompatActivityUtils;
+import com.termux.shared.activity.media.AppCompatActivityUtils;
 import com.termux.shared.net.uri.UriUtils;
 import com.termux.shared.termux.TermuxConstants;
 import com.termux.shared.termux.TermuxConstants.TERMUX_APP.TERMUX_SERVICE;
