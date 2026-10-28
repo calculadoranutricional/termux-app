@@ -103,6 +103,10 @@ public class TermuxTerminalExtraKeys extends TerminalExtraKeys {
                 terminalView.mEmulator.toggleAutoScrollDisabled();
         } else if ("F".equals(key)) {
             showFunctionKeysPopup(view, ctrlDown, altDown, shiftDown, fnDown);
+        } else if ("Y".equals(key)) {
+            if (mActivity != null && mActivity.getCurrentSession() != null) {
+                mActivity.getCurrentSession().write("yazi\n");
+            }
         } else {
             super.onTerminalExtraKeyButtonClick(view, key, ctrlDown, altDown, shiftDown, fnDown);
         }
