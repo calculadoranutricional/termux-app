@@ -63,6 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
             new Thread() {
                 @Override
                 public void run() {
+                    configurePlayStorePreference(context);
                     configureTermuxAPIPreference(context);
                     configureTermuxFloatPreference(context);
                     configureTermuxTaskerPreference(context);
@@ -71,6 +72,16 @@ public class SettingsActivity extends AppCompatActivity {
                     configureDonatePreference(context);
                 }
             }.start();
+        }
+
+        private void configurePlayStorePreference(@NonNull Context context) {
+            Preference playStorePreference = findPreference("termux_play_store");
+            if (playStorePreference != null) {
+                playStorePreference.setOnPreferenceClickListener(preference -> {
+                    com.termux.app.store.TermuxStoreActivity.start(context);
+                    return true;
+                });
+            }
         }
 
         private void configureTermuxAPIPreference(@NonNull Context context) {

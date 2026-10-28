@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground">
+
+    <include
+        layout="@layout/partial_primary_toolbar"
+        android:id="@+id/partial_primary_toolbar" />
+
+    <!-- Google Play Store Search Bar Header -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="3dp"
+        app:cardBackgroundColor="#2D3033">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_play_store"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/store_search_fake"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:text="Buscar paquetes y herramientas"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Termux"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="#01875F" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Subtitle / Categories Header -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="4dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:background="@drawable/bg_store_chip"
+                android:text="Para ti"
+                android:textColor="#01875F"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:paddingHorizontal="14dp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:background="@drawable/bg_store_chip"
+                android:text="Top herramientas"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="13sp"
+                android:paddingHorizontal="14dp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:background="@drawable/bg_store_chip"
+                android:text="Sistema y Backups"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="13sp"
+                android:paddingHorizontal="14dp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- List of Packages -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/store_packages_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp" />
+
+</LinearLayout>

@@ -229,6 +229,10 @@
 
 
 
+    <!-- Play Store Preference -->
+    <string name="termux_play_store_title">Play Store</string>
+    <string name="termux_play_store_summary">Gestor interactivo de paquetes y herramientas para Termux</string>
+
     <!-- About Preference -->
     <string name="about_preference_title">About</string>
 
