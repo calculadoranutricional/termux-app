@@ -13,6 +13,9 @@ sources:
   - id: openwiki-source-c612bc155ea9447edde9961a
     resource: repo://termux-shared/src/main/java/com/termux/shared/termux/shell/command/environment/TermuxShellEnvironment.java
 generated: { by: "openwiki/0.7.2", at: "2026-10-26T20:00:32.746Z" }
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-10-26T20:00:32.746Z
 ---
 
 # Command Execution Workflow
