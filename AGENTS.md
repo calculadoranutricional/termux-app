@@ -1,0 +1,34 @@
+<!-- AGENTMEMORY:START -->
+## Agent memory (agentmemory)
+
+You have persistent long-term memory via the agentmemory MCP server. Tools: `memory_recall`, `memory_smart_search`, `memory_save`, `memory_sessions`.
+
+- At the START of a task, call `memory_recall` (or `memory_smart_search`) with the task context to load relevant past decisions, fixes, and preferences before asking the user to repeat anything.
+- When you learn something durable (a decision, a fix, a gotcha, a user preference, a project convention), call `memory_save` to persist it.
+- Prefer recalling over re-deriving, and save concise reusable facts rather than transcripts.
+<!-- AGENTMEMORY:END -->
+
+<!-- CODEGRAPH:START -->
+## CodeGraph
+
+In repositories indexed by CodeGraph (a `.codegraph/` directory exists at the repo root), reach for it BEFORE grep/find or reading files when you need to understand or locate code:
+
+- **Primary Command**: `codegraph explore "<symbol or question>"` (shows source code + call paths in one shot).
+- **Targeted Inspection**: Use `codegraph node <symbol>` for caller/callee hierarchy, or `codegraph query "<search>"` for fast symbol lookup.
+- **Index Sync**: Run `codegraph sync` after editing code to keep the index fresh. Refer to `codegraph --help` for full options.
+
+If there is no `.codegraph/` directory, skip CodeGraph entirely — indexing is the user's decision.
+<!-- CODEGRAPH:END -->
+
+<!-- OPENWIKI:START -->
+## OpenWiki & Document Search
+
+This repository has a generated `openwiki/` evidence index. It is optional just-in-time context, not required startup reading.
+
+- Do not enumerate, preload, or search wikis at task start. Use retrieval when the user asks for it, when unfamiliar architecture or dependency behavior materially affects the task, or when source inspection leaves an important uncertainty. Stop once the question is grounded.
+- When querying `openwiki/`, use `ripgrep` (`rg -i -C 3 "termino" openwiki/`) or native tools to extract only the relevant snippet without loading full markdown files.
+- Treat source code and tests as authoritative. A brief's unknowns and review items are verification gaps, not automatic requirements.
+- Prefer the narrowest quiet validation that proves the changed behavior. Preserve complete failure output.
+
+The scheduled OpenWiki GitHub Actions workflow refreshes the repository wiki. Do not hand-edit generated OpenWiki pages unless explicitly asked; prefer updating source code/docs and letting OpenWiki regenerate.
+<!-- OPENWIKI:END -->
