@@ -69,9 +69,13 @@ sequenceDiagram
   - Implements terminal view clients (`TermuxTerminalViewClient`) and activity session clients (`TermuxTerminalSessionActivityClient`) to handle user input, touch events, visual styling changes, and clipboard interactions.
   - Handles Activity lifecycle transitions (`onResume`, `onStop`, `onDestroy`) ensuring clean disconnection of activity-bound terminal session clients when UI goes out of visibility.
 
-### 4. Broadcast Receivers & Integration Components
-- **`SystemEventReceiver`**: Manages system broadcast registrations (e.g., package updates).
+### 4. Auxiliary Activities, Broadcast Receivers & Integration Components
+- **`TermuxStoreActivity` (`com.termux.app.store.TermuxStoreActivity`)**: An interactive package and tools manager (Play Store style UI) allowing users to discover, install, launch, or configure curated CLI packages (e.g., nodejs, python, git, yazi, neovim) and tools. It integrates directly with `TermuxService` via execution commands to install packages silently or in interactive terminal sessions.
+- **`SettingsActivity` (`com.termux.app.activities.SettingsActivity`)**: Manages application preferences (terminal styling, font size, terminal bell, soft keyboard behaviors) and navigates to the store and report screens.
+- **`HelpActivity` (`com.termux.app.activities.HelpActivity`)**: Displays embedded help documentation and user guides.
+- **`SystemEventReceiver`**: Manages system broadcast registrations (e.g., package updates, boot completion).
 - **`FileReceiverActivity`**: Handles external file sharing intents into Termux environments.
+- **`TermuxOpenReceiver`**: Handles `ACTION_OPEN` / `ACTION_VIEW` intents dispatched to open URLs, scripts, and files within Termux.
 - **`TermuxAmSocketServer`**: Local socket server supporting Android activity manager integration for sub-processes.
 
 ## Lifecycle & Invariants

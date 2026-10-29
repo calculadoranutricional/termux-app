@@ -9,7 +9,7 @@
       "sourceFingerprint": "sha256:4ecfdc919b6e450fd2dca9ce00570b05282e48eb070d0b1d567c7e52f43e02c3"
     },
     "/openwiki/architecture/overview.md": {
-      "pageVersion": "sha256:a533b302c9332b742bc9114e8e5d30ad316cbc8fa7a97be79aeec965d42939bf",
+      "pageVersion": "sha256:b2eabb908d31667d9d49d78f88b32ded0f434cc62bca7d2a9e5a22c749270b56",
       "completedBy": "openwiki/0.7.2",
       "completedRunId": "19e919ba-b7ba-42cd-a102-4c6e31e63a64",
       "gitHead": "8629e632fcb95da272221be327db653fb24befe9",
@@ -23,14 +23,14 @@
       "sourceFingerprint": "sha256:4ecfdc919b6e450fd2dca9ce00570b05282e48eb070d0b1d567c7e52f43e02c3"
     },
     "/openwiki/concepts/terminal-emulation.md": {
-      "pageVersion": "sha256:9d07ff042296f12bace7107c6349168cd29c8dcc5560c26ea1fa205a23174d10",
+      "pageVersion": "sha256:065c14215ddaf23fedf3c151e17068e2d1840acba022bc8f4e363d4039f533e2",
       "completedBy": "openwiki/0.7.2",
       "completedRunId": "19e919ba-b7ba-42cd-a102-4c6e31e63a64",
       "gitHead": "8629e632fcb95da272221be327db653fb24befe9",
       "sourceFingerprint": "sha256:4ecfdc919b6e450fd2dca9ce00570b05282e48eb070d0b1d567c7e52f43e02c3"
     },
     "/openwiki/quickstart.md": {
-      "pageVersion": "sha256:32b11951d60d106352fcf90b5bf425e96a0f9485985a7345812c9ba0db50f35e",
+      "pageVersion": "sha256:2bcc1df2a66b719e797efa649ad46853b1d37ff289b5e99998493484f5077fc6",
       "completedBy": "openwiki/0.7.2",
       "completedRunId": "b856922e-8895-47e9-a848-f474c61554be",
       "gitHead": "3292c49e0b53c4de968abda128ce7fb0f350445a",

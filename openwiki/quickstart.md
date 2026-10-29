@@ -40,8 +40,8 @@ Use this guide to navigate across the major domains of the Termux App codebase. 
 
 ### Project Structure
 Termux is structured as a multi-module Android Gradle project (`settings.gradle`):
-1. **`:app`**: The primary Android application module containing UI activities (`TermuxActivity`), services (`TermuxService`, `RunCommandService`), receivers, and configuration handlers.
-2. **`:terminal-emulator`**: Pure Java/Kotlin core terminal emulation logic, VT100/ANSI parser, grid buffers, and terminal state.
+1. **`:app`**: The primary Android application module containing UI activities (`TermuxActivity`, `TermuxStoreActivity`, `SettingsActivity`), services (`TermuxService`, `RunCommandService`), receivers (`TermuxOpenReceiver`, `SystemEventReceiver`), and configuration handlers.
+2. **`:terminal-emulator`**: Pure Java core terminal emulation logic, VT100/ANSI parser, grid buffers, sixel graphics support, and terminal state machine.
 3. **`:terminal-view`**: Android View implementation (`TerminalView`) responsible for rendering terminal grids, handling input gestures, and text selection.
 4. **`:termux-shared`**: Shared utility library containing file permissions, intents, notification helpers, and common utilities used across Termux apps and plugins.
 

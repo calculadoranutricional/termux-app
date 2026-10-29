@@ -34,8 +34,7 @@ The terminal emulation subsystem is housed in the `com.termux.terminal` package 
 - **`KeyHandler`**: Translates Android key events and key combinations into the corresponding escape sequences or raw character inputs expected by shells.
 - **`WcWidth`**: Calculates Unicode character display widths (East Asian Width / Unicode width tables) to ensure correct column alignment and multi-column glyph handling.
 
-<!-- openwiki: mermaid parse failed and this diagram was converted to a text fence so it does not break rendering. Fix the diagram source and restore the mermaid fence. Parser error: Heuristic: an unescaped angle bracket inside a label breaks rendering; rephrase the label. -->
-```text
+```mermaid
 stateDiagram-v2
     [*] --> ESC_NONE : processCodePoint()
     ESC_NONE --> ESC : Received ESC (0x1B)
@@ -49,13 +48,13 @@ stateDiagram-v2
         [*] --> CollectingArgs
         CollectingArgs --> CSI_QUESTION : Received ?
         CollectingArgs --> CSI_DOLLAR : Received $
-        CollectingArgs --> Execution : Received Final Byte (@-~ / 0x40-0x7E)
+        CollectingArgs --> Execution : Received Final Byte (0x40-0x7E)
     }
     
     state ESC_OSC {
         [*] --> CollectingOscArgs
         CollectingOscArgs --> ESC_OSC__ESC : Received ESC
-        ESC_OSC__ESC --> Execution : Received \\ (ST)
+        ESC_OSC__ESC --> Execution : Received String Terminator (ST)
         ESC_OSC__ESC --> CollectingOscArgs : Received other char
         CollectingOscArgs --> Execution : Received BEL (0x07)
     }
@@ -112,5 +111,4 @@ Accurate column positioning in a fixed-width terminal requires determining the d
 ## Related Pages
 - [Architecture Overview](../architecture/overview.md)
 - [Rendering and View Engine](rendering-and-view.md)
-<!-- openwiki: broken internal link [session-management.md] file "session-management.md" does not exist. Fix the href or restore the target, then delete this comment. -->
-- [Session Management](session-management.md)
+- [Terminal Session Lifecycle](../workflows/session-lifecycle.md)
