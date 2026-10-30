@@ -32,6 +32,7 @@ jobs:
         env:
           PACKAGE_VARIANT: ${{ matrix.package_variant }}
         run: |
+          chmod +x ./gradlew
           exit_on_error() { echo "$1"; exit 1; }
 
           echo "Setting vars"

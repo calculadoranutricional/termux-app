@@ -26,6 +26,7 @@ jobs:
         env:
           PACKAGE_VARIANT: ${{ matrix.package_variant }}
         run: |
+          chmod +x ./gradlew
           exit_on_error() {
               echo "$1"
               echo "Deleting '$RELEASE_VERSION_NAME' release and '$GITHUB_REF' tag"

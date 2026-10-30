@@ -247,6 +247,8 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         setSettingsButtonView();
 
+        setPlayStoreButtonView();
+
         setNewSessionButtonView();
 
         setToggleKeyboardView();
@@ -568,6 +570,15 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         settingsButton.setOnClickListener(v -> {
             ActivityUtils.startActivity(this, new Intent(this, SettingsActivity.class));
         });
+    }
+
+    private void setPlayStoreButtonView() {
+        ImageButton playStoreButton = findViewById(R.id.play_store_button);
+        if (playStoreButton != null) {
+            playStoreButton.setOnClickListener(v -> {
+                com.termux.app.store.TermuxStoreActivity.start(this);
+            });
+        }
     }
 
     private void setNewSessionButtonView() {
