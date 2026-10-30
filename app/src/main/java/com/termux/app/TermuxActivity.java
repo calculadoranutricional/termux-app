@@ -573,7 +573,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     }
 
     private void setPlayStoreButtonView() {
-        ImageButton playStoreButton = findViewById(R.id.play_store_button);
+        View playStoreButton = findViewById(R.id.play_store_button);
         if (playStoreButton != null) {
             playStoreButton.setOnClickListener(v -> {
                 com.termux.app.store.TermuxStoreActivity.start(this);

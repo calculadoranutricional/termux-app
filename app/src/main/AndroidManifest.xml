@@ -106,7 +106,7 @@
             android:name=".app.store.TermuxStoreActivity"
             android:exported="false"
             android:label="Play Store"
-            android:theme="@style/Theme.TermuxApp.DayNight.NoActionBar" />
+            android:theme="@style/Theme.TermuxStore" />
 
         <activity
             android:name=".shared.activities.ReportActivity"

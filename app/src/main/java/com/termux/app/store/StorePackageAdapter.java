@@ -30,6 +30,12 @@ public class StorePackageAdapter extends RecyclerView.Adapter<StorePackageAdapte
         this.mListener = listener;
     }
 
+    public void updateList(List<StorePackageItem> newItems) {
+        mItems.clear();
+        mItems.addAll(newItems);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public PackageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,9 +48,18 @@ public class StorePackageAdapter extends RecyclerView.Adapter<StorePackageAdapte
         StorePackageItem item = mItems.get(position);
 
         holder.titleView.setText(item.getTitle());
-        holder.categoryView.setText(item.getCategory());
+        holder.categoryView.setText(item.getCategory() + " • " + item.getRating() + " • " + item.getSize());
         holder.descriptionView.setText(item.getDescription());
         holder.iconView.setImageResource(item.getIconResId());
+
+        if (item.getIconResId() == R.drawable.ic_store_yazi || item.getIconResId() == R.drawable.ic_store_antigravity) {
+            holder.iconView.setPadding(0, 0, 0, 0);
+            holder.iconView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        } else {
+            int pad = (int) (8 * holder.itemView.getContext().getResources().getDisplayMetrics().density);
+            holder.iconView.setPadding(pad, pad, pad, pad);
+            holder.iconView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        }
 
         boolean isInstalled = false;
         if (item.getBinaryCheckPath() != null) {

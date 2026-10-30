@@ -4,63 +4,73 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?android:attr/colorBackground">
+    android:fitsSystemWindows="true"
+    android:background="#131314">
 
-    <include
-        layout="@layout/partial_primary_toolbar"
-        android:id="@+id/partial_primary_toolbar" />
-
-    <!-- Google Play Store Search Bar Header -->
+    <!-- Google Play Store Search Bar Header (Full width, no mic, no avatar, no sponsor) -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="10dp"
         app:cardCornerRadius="24dp"
-        app:cardElevation="3dp"
-        app:cardBackgroundColor="#2D3033">
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="#2A2B2E">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingHorizontal="16dp">
+            android:paddingHorizontal="14dp">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_play_store"
-                android:contentDescription="@null" />
+                android:id="@+id/store_back_button"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_arrow_back"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Volver"
+                app:tint="#E3E3E3" />
 
-            <TextView
-                android:id="@+id/store_search_fake"
+            <EditText
+                android:id="@+id/store_search_input"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_marginStart="12dp"
-                android:text="Buscar paquetes y herramientas"
-                android:textColor="?android:attr/textColorSecondary"
-                android:textSize="14sp" />
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="8dp"
+                android:background="@null"
+                android:hint="@string/store_search_hint"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#9AA0A6"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:imeOptions="actionSearch"
+                android:inputType="text" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Termux"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:textColor="#01875F" />
+            <ImageView
+                android:id="@+id/store_search_clear"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_clear"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Borrar búsqueda"
+                android:visibility="gone"
+                app:tint="#9AA0A6" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Subtitle / Categories Header -->
+    <!-- Subtitle / Categories Header (Google Play Style Chips) -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
         android:paddingHorizontal="16dp"
-        android:layout_marginBottom="4dp">
+        android:layout_marginBottom="8dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -68,48 +78,121 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/chip_for_you"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:gravity="center"
-                android:background="@drawable/bg_store_chip"
+                android:background="@drawable/bg_store_chip_selected"
                 android:text="Para ti"
-                android:textColor="#01875F"
+                android:textColor="#00E676"
                 android:textStyle="bold"
                 android:textSize="13sp"
                 android:paddingHorizontal="14dp"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:focusable="true" />
 
             <TextView
+                android:id="@+id/chip_top_tools"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:gravity="center"
-                android:background="@drawable/bg_store_chip"
+                android:background="@drawable/bg_store_chip_unselected"
                 android:text="Top herramientas"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="#9AA0A6"
                 android:textSize="13sp"
                 android:paddingHorizontal="14dp"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:focusable="true" />
 
             <TextView
+                android:id="@+id/chip_dev"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:gravity="center"
-                android:background="@drawable/bg_store_chip"
-                android:text="Sistema y Backups"
-                android:textColor="?android:attr/textColorSecondary"
+                android:background="@drawable/bg_store_chip_unselected"
+                android:text="Desarrollo"
+                android:textColor="#9AA0A6"
                 android:textSize="13sp"
-                android:paddingHorizontal="14dp" />
+                android:paddingHorizontal="14dp"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/chip_system"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:background="@drawable/bg_store_chip_unselected"
+                android:text="Sistema"
+                android:textColor="#9AA0A6"
+                android:textSize="13sp"
+                android:paddingHorizontal="14dp"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/chip_ai_cli"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:background="@drawable/bg_store_chip_unselected"
+                android:text="IA y CLI"
+                android:textColor="#9AA0A6"
+                android:textSize="13sp"
+                android:paddingHorizontal="14dp"
+                android:clickable="true"
+                android:focusable="true" />
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- List of Packages -->
+    <!-- List of Packages (Play Store App Feed) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/store_packages_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:paddingTop="8dp"
+        android:paddingTop="4dp"
         android:paddingBottom="16dp" />
+
+    <!-- Empty State View -->
+    <LinearLayout
+        android:id="@+id/store_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:padding="32dp">
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_search"
+            app:tint="#5F6368" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="No se encontraron paquetes"
+            android:textColor="#E3E3E3"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Prueba con otro término de búsqueda o categoría."
+            android:textColor="#9AA0A6"
+            android:textSize="12sp"
+            android:gravity="center" />
+    </LinearLayout>
 
 </LinearLayout>

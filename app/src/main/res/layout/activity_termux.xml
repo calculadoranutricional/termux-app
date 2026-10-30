@@ -48,27 +48,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
                     <ImageButton
                         android:id="@+id/settings_button"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@drawable/ic_settings"
-                        android:background="@null"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/action_open_settings"
                         app:tint="?attr/termuxActivityDrawerImageTint" />
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
                     <ImageButton
                         android:id="@+id/play_store_button"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@drawable/ic_play_store"
-                        android:background="@null"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:adjustViewBounds="true"
                         android:contentDescription="@string/termux_play_store_title" />
                 </LinearLayout>
 

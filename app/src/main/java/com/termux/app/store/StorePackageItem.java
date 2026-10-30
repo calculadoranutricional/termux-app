@@ -26,6 +26,8 @@ public class StorePackageItem {
     private final String updateCommand;
     @Nullable
     private final String binaryCheckPath;
+    private final String rating;
+    private final String size;
 
     public StorePackageItem(@NonNull String id,
                             @NonNull String title,
@@ -36,6 +38,20 @@ public class StorePackageItem {
                             @Nullable String uninstallCommand,
                             @Nullable String updateCommand,
                             @Nullable String binaryCheckPath) {
+        this(id, title, category, description, iconResId, installCommand, uninstallCommand, updateCommand, binaryCheckPath, "4.8 ★", "12 MB");
+    }
+
+    public StorePackageItem(@NonNull String id,
+                            @NonNull String title,
+                            @NonNull String category,
+                            @NonNull String description,
+                            @DrawableRes int iconResId,
+                            @NonNull String installCommand,
+                            @Nullable String uninstallCommand,
+                            @Nullable String updateCommand,
+                            @Nullable String binaryCheckPath,
+                            @NonNull String rating,
+                            @NonNull String size) {
         this.id = id;
         this.title = title;
         this.category = category;
@@ -45,6 +61,8 @@ public class StorePackageItem {
         this.uninstallCommand = uninstallCommand;
         this.updateCommand = updateCommand;
         this.binaryCheckPath = binaryCheckPath;
+        this.rating = rating;
+        this.size = size;
     }
 
     public String getId() {
@@ -84,5 +102,13 @@ public class StorePackageItem {
     @Nullable
     public String getBinaryCheckPath() {
         return binaryCheckPath;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public String getSize() {
+        return size;
     }
 }
