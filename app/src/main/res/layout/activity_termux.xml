@@ -49,14 +49,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp">
 
                     <ImageButton
                         android:id="@+id/settings_button"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@drawable/ic_settings"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:background="@drawable/bg_drawer_icon_ripple"
                         android:contentDescription="@string/action_open_settings"
                         app:tint="?attr/termuxActivityDrawerImageTint" />
 
@@ -64,9 +68,10 @@
                         android:id="@+id/play_store_button"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:layout_marginStart="4dp"
                         android:src="@drawable/ic_play_store"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        android:padding="10dp"
+                        android:background="@drawable/bg_drawer_icon_ripple"
+                        android:padding="8dp"
                         android:scaleType="fitCenter"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/termux_play_store_title" />

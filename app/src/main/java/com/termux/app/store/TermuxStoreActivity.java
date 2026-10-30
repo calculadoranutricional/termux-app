@@ -402,20 +402,34 @@ public class TermuxStoreActivity extends AppCompatActivity implements StorePacka
             File scriptFile = new File(scriptDir, uniqueName);
 
             String scriptContent = "#!/data/data/com.termux/files/usr/bin/bash\n" +
-                "echo -e '\\033[1;32m==> Termux Play Store: " + title + "\\033[0m'\n" +
+                "sleep 0.15\n" +
+                "draw_divider() {\n" +
+                "  shopt -s checkwinsize 2>/dev/null\n" +
+                "  (:;:) 2>/dev/null\n" +
+                "  local cols=$(tput cols 2>/dev/null)\n" +
+                "  [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=$(stty size 2>/dev/null | awk '{print $2}')\n" +
+                "  [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=${COLUMNS:-0}\n" +
+                "  [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=45\n" +
+                "  local target=$((cols > 2 ? cols - 1 : cols))\n" +
+                "  local d=\"────────────────────────────────────────────────────────────────────────────────────────────────────\"\n" +
+                "  local line=\"\"\n" +
+                "  while [ ${#line} -lt \"$target\" ]; do line=\"${line}${d}\"; done\n" +
+                "  echo -e \"\\033[90m${line:0:$target}\\033[0m\"\n" +
+                "}\n" +
+                "echo -e '\\033[1;32m●\\033[0m \\033[1;33mTermux Play Store: " + title + "\\033[0m'\n" +
                 "echo -e '\\033[1;34m$ " + shellCommand.replace("'", "'\\''") + "\\033[0m'\n" +
-                "echo '----------------------------------------'\n" +
+                "draw_divider\n" +
                 shellCommand + "\n" +
                 "EXIT_CODE=$?\n" +
-                "echo '----------------------------------------'\n" +
+                "draw_divider\n" +
                 "if [ $EXIT_CODE -eq 0 ]; then\n" +
-                "  echo -e '\\033[1;32m✓ Proceso finalizado con éxito (código 0)\\033[0m'\n" +
+                "  echo -e '\\033[1;32m●\\033[0m \\033[1;33mProceso finalizado con éxito (código 0)\\033[0m'\n" +
                 "else\n" +
-                "  echo -e '\\033[1;31m✗ Error al ejecutar (código '$EXIT_CODE')\\033[0m'\n" +
+                "  echo -e '\\033[1;31m●\\033[0m \\033[1;33mError al ejecutar (código '$EXIT_CODE')\\033[0m'\n" +
                 "fi\n" +
                 "echo ''\n" +
-                "echo -e '\\033[1;36m[Sesión mantenida activa para auditar y depurar]\\033[0m'\n" +
-                "echo -e '\\033[1;37mEscribe \\033[1;31mexit\\033[1;37m cuando desees cerrar esta sesión manualmente.\\033[0m'\n" +
+                "echo -e '\\033[1;37mSesión activa para auditar y depurar\\033[0m'\n" +
+                "echo -e '\\033[1;37mEscribe \\033[1;34mexit\\033[0;1;37m cuando desees cerrar esta sesión manualmente\\033[0m'\n" +
                 "echo ''\n" +
                 "if [ -n \"$SHELL\" ] && [ -x \"$SHELL\" ]; then\n" +
                 "  exec \"$SHELL\"\n" +
