@@ -17,9 +17,6 @@ sources:
   - id: openwiki-source-0bd423d182fbcfbcec59b8b7
     resource: repo://termux-shared/build.gradle
 generated: { by: "openwiki/0.7.2", at: "2026-10-26T20:00:32.746Z" }
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
 ---
 
 # Modules and Dependencies

@@ -15,9 +15,6 @@ sources:
   - id: openwiki-source-5662f6220e676e770ea00fc4
     resource: repo://terminal-emulator/src/main/java/com/termux/terminal/WcWidth.java
 generated: { by: "openwiki/0.7.2", at: "2026-10-26T20:00:32.746Z" }
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
 ---
 
 # Terminal Emulation Engine
