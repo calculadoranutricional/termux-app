@@ -13,9 +13,6 @@ sources:
   - id: openwiki-source-fe567dfc051190bb059fe863
     resource: repo://terminal-view/src/main/java/com/termux/view/textselection/TextSelectionCursorController.java
 generated: { by: "openwiki/0.7.2", at: "2026-10-26T20:00:32.746Z" }
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
 ---
 
 # Terminal View & Rendering

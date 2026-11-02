@@ -13,9 +13,6 @@ sources:
   - id: openwiki-source-ea3f9f58c44ea36f227b8fdc
     resource: repo://termux-shared/src/main/java/com/termux/shared/termux/shell/command/runner/terminal/TermuxSession.java
 generated: { by: "openwiki/0.7.2", at: "2026-10-26T20:00:32.746Z" }
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
 ---
 
 # Terminal Session Lifecycle

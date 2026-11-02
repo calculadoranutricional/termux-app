@@ -11,9 +11,6 @@ sources:
   - id: openwiki-source-84966089f535a69b6da761e1
     resource: repo://app/src/main/java/com/termux/app/TermuxService.java
 generated: { by: "openwiki/0.7.2", at: "2026-10-26T20:00:32.746Z" }
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
 ---
 
 # System Architecture Overview

@@ -3,6 +3,9 @@ type: reference
 title: Modules and Dependencies
 description: Detailed breakdown of the multi-module project structure, Gradle configuration, and inter-module dependencies in Termux app.
 tags: [gradle, modules, dependencies, android, architecture]
+verified:
+  - by: openwiki/0.7.2
+    at: 2026-11-02T17:55:57.091Z
 sources:
   - id: openwiki-source-ba5e180102dd55751678e7a4
     resource: repo://app/build.gradle
@@ -16,10 +19,7 @@ sources:
     resource: repo://terminal-view/build.gradle
   - id: openwiki-source-0bd423d182fbcfbcec59b8b7
     resource: repo://termux-shared/build.gradle
-generated: { by: "openwiki/0.7.2", at: "2026-10-26T20:00:32.746Z" }
-verified:
-  - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
+generated: { by: "openwiki/0.7.2", at: "2026-11-02T17:55:57.091Z" }
 ---
 
 # Modules and Dependencies
@@ -33,22 +33,22 @@ As defined in `settings.gradle` (repo://settings.gradle#L1), the project include
 1. **`app`** (`com.termux`):
    - **Role**: The main Android application module (`com.android.application`).
    - **Responsibilities**: Provides the primary user interface (activities, fragments, drawer layout, preferences), terminal session management, settings storage, execution services, and bootstrapping.
-   - **Dependencies**: Depends on `:terminal-view` and `:termux-shared`, as well as AndroidX libraries, Material Components, Guava, and Markwon Markdown parser.
+   - **Dependencies**: Depends on `:terminal-view` and `:termux-shared`, as well as AndroidX libraries (`androidx.annotation:annotation:1.9.0`, `androidx.core:core:1.13.1`, `androidx.drawerlayout:drawerlayout:1.2.0`, `androidx.preference:preference:1.2.1`, `androidx.viewpager:viewpager:1.0.0`), Material Components (`com.google.android.material:material:1.12.0`), Guava, and Markwon Markdown parser (`io.noties.markwon:core:$markwonVersion`).
 
 2. **`termux-shared`** (`com.termux.shared`):
    - **Role**: Shared library module (`com.android.library`).
    - **Responsibilities**: Houses shared utilities, file operations, permissions, intent handling, bootstrap package configuration (`TermuxBootstrap.PackageVariant`), and execution helpers.
-   - **Dependencies**: Depends on `:terminal-view`, AndroidX libraries, `hiddenapibypass`, `commons-io` (pinned to version `2.5` to avoid runtime exceptions on Android < 8 due to missing `java.nio.file.Path`), and `termux-am-library`.
+   - **Dependencies**: Depends on `:terminal-view`, AndroidX libraries (`appcompat:1.6.1`, `annotation:1.9.0`, `core:1.13.1`, `window:1.1.0`), Material Components (`1.12.0`), Guava (`24.1-jre`), Markwon, `hiddenapibypass` (`org.lsposed.hiddenapibypass:hiddenapibypass:6.1`), `commons-io` (pinned to version `2.5` to avoid runtime exceptions on Android < 8 due to missing `java.nio.file.Path`), and `termux-am-library` (`com.termux:termux-am-library:v2.0.0`).
 
 3. **`terminal-view`** (`com.termux.view`):
    - **Role**: UI library module for rendering the terminal (`com.android.library`).
    - **Responsibilities**: Provides `TerminalView` and related view classes for handling touch input, scaling, scrolling, and rendering terminal screen contents.
-   - **Dependencies**: Uses `api project(":terminal-emulator")` to expose the emulator API upstream, along with AndroidX annotations.
+   - **Dependencies**: Uses `api project(":terminal-emulator")` to expose the emulator API upstream, along with `androidx.annotation:annotation:1.9.0`.
 
 4. **`terminal-emulator`** (`com.termux.emulator`):
    - **Role**: Pure Java/C terminal emulation library (`com.android.library`).
    - **Responsibilities**: Implements ANSI/DEC VT terminal state machine emulation, screen buffer management, key input translation, and JNI-based terminal backend processing (`Android.mk`).
-   - **Dependencies**: Pure library module with no upstream module dependencies; depends only on Android annotations and JUnit for unit testing.
+   - **Dependencies**: Pure library module with no upstream module dependencies; depends only on `androidx.annotation:annotation:1.9.0` and JUnit for unit testing.
 
 ## Inter-Module Dependency Graph
 
@@ -77,10 +77,10 @@ graph TD
 
 Global project properties are centralized in `gradle.properties` (repo://gradle.properties#L18-L22) and applied across modules:
 
-- **`minSdkVersion`**: `21` (Android 5.0 Lollipop)
-- **`targetSdkVersion`**: `28` (Android 9.0 Pie)
-- **`compileSdkVersion`**: `36`
-- **`ndkVersion`**: `29.0.14206865` (with fallback to `JITPACK_NDK_VERSION`)
+- **`minSdkVersion`**: `21` (Android 5.0 Lollipop) (repo://gradle.properties#L18)
+- **`targetSdkVersion`**: `28` (Android 9.0 Pie) (repo://gradle.properties#L19)
+- **`compileSdkVersion`**: `36` (repo://gradle.properties#L21)
+- **`ndkVersion`**: `29.0.14206865` (with fallback to `JITPACK_NDK_VERSION`) (repo://gradle.properties#L20)
 
 ### Gradle Tooling & Plugins
 - **Root Buildscript**: Uses Android Gradle Plugin `com.android.tools.build:gradle:8.13.2` with repositories configured for Google Maven and Central (repo://build.gradle#L1-L16).
