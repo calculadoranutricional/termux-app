@@ -280,9 +280,9 @@ public class TermuxStoreActivity extends AppCompatActivity implements StorePacka
             "IA y CLI • Wiki & Arquitectura",
             "Herramienta CLI para generar y consultar documentación de arquitectura, grafos de dependencias y wikis técnicas.",
             R.drawable.ic_pkg_openwiki,
-            "pkg install -y nodejs-lts npm && npm install -g --allow-scripts=node-pty,@github/keytar,better-sqlite3 openwiki",
+            "pkg install -y nodejs-lts npm python clang make && npm install -g --allow-scripts=node-pty,@github/keytar,better-sqlite3 openwiki",
             "npm uninstall -g openwiki",
-            "pkg install -y nodejs-lts npm && npm install -g --allow-scripts=node-pty,@github/keytar,better-sqlite3 openwiki",
+            "pkg install -y nodejs-lts npm python clang make && npm install -g --allow-scripts=node-pty,@github/keytar,better-sqlite3 openwiki",
             TermuxConstants.TERMUX_BIN_PREFIX_DIR_PATH + "/openwiki:" + TermuxConstants.TERMUX_HOME_DIR_PATH + "/.local/bin/openwiki",
             "4.9 ★",
             "18 MB",
@@ -870,9 +870,9 @@ public class TermuxStoreActivity extends AppCompatActivity implements StorePacka
             "Google • Asistente de IA",
             "Línea de comandos oficial de Google Gemini para interactuar con modelos de IA, generación de código y automatización multimodal.",
             R.drawable.ic_pkg_gemini,
-            "pkg install -y nodejs-lts npm && npm install -g --allow-scripts=node-pty,@github/keytar @google/gemini-cli",
+            "pkg install -y nodejs-lts npm python clang make && npm install -g --allow-scripts=node-pty,@github/keytar @google/gemini-cli",
             "npm uninstall -g @google/gemini-cli",
-            "pkg install -y nodejs-lts npm && npm install -g --allow-scripts=node-pty,@github/keytar @google/gemini-cli",
+            "pkg install -y nodejs-lts npm python clang make && npm install -g --allow-scripts=node-pty,@github/keytar @google/gemini-cli",
             TermuxConstants.TERMUX_BIN_PREFIX_DIR_PATH + "/gemini:" + TermuxConstants.TERMUX_HOME_DIR_PATH + "/.local/bin/gemini",
             "4.9 ★",
             "24 MB",
@@ -1013,39 +1013,31 @@ public class TermuxStoreActivity extends AppCompatActivity implements StorePacka
             String postBanner = isUninstall ? "" : buildPostInstallBanner(item);
 
             String fullCommandString =
-                "[ -f /data/data/com.termux/files/usr/etc/profile ] && . /data/data/com.termux/files/usr/etc/profile\n" +
-                "[ -f \"$HOME/.zshrc\" ] && . \"$HOME/.zshrc\" 2>/dev/null\n" +
-                "[ -f \"$HOME/.bashrc\" ] && . \"$HOME/.bashrc\" 2>/dev/null\n" +
-                "sleep 0.15\n" +
-                "draw_divider() {\n" +
-                "  shopt -s checkwinsize 2>/dev/null\n" +
-                "  (:;:) 2>/dev/null\n" +
-                "  local cols=$(tput cols 2>/dev/null)\n" +
-                "  [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=$(stty size 2>/dev/null | awk '{print $2}')\n" +
-                "  [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=${COLUMNS:-0}\n" +
-                "  [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=45\n" +
-                "  local target=$((cols > 2 ? cols - 1 : cols))\n" +
-                "  local d=\"────────────────────────────────────────────────────────────────────────────────────────────────────\"\n" +
-                "  local line=\"\"\n" +
-                "  while [ ${#line} -lt \"$target\" ]; do line=\"${line}${d}\"; done\n" +
-                "  echo -e \"\\033[90m${line:0:$target}\\033[0m\"\n" +
-                "}\n" +
-                "echo -e '\\033[1;32m●\\033[0m \\033[1;33mTermux Play Store: " + title.replace("'", "'\\''") + "\\033[0m'\n" +
-                "echo -e '\\033[1;34m$ " + shellCommand.replace("'", "'\\''").replace("\n", " ; ") + "\\033[0m'\n" +
-                "draw_divider\n" +
-                shellCommand + "\n" +
-                "EXIT_CODE=$?\n" +
-                "draw_divider\n" +
-                "if [ $EXIT_CODE -eq 0 ]; then\n" +
-                "  echo -e '\\033[1;32m●\\033[0m \\033[1;33mProceso finalizado con éxito (código 0)\\033[0m'\n" +
-                postBanner +
-                "else\n" +
-                "  echo -e '\\033[1;31m●\\033[0m \\033[1;33mError al ejecutar (código '$EXIT_CODE')\\033[0m'\n" +
-                "fi\n" +
-                "echo ''\n" +
-                "echo 'Sesión activa para auditar y depurar'\n" +
-                "echo 'Escribe exit cuando desees cerrar esta sesión manualmente'\n" +
-                "echo ''\n" +
+                "[ -f /data/data/com.termux/files/usr/lib/libtermux-exec.so ] && export LD_PRELOAD=/data/data/com.termux/files/usr/lib/libtermux-exec.so ; " +
+                "export PREFIX=/data/data/com.termux/files/usr ; " +
+                "export HOME=/data/data/com.termux/files/home ; " +
+                "export PATH=$PREFIX/bin:$HOME/.local/bin:$HOME/go/bin:$PATH ; " +
+                "[ -f /data/data/com.termux/files/usr/etc/profile ] && . /data/data/com.termux/files/usr/etc/profile 2>/dev/null ; " +
+                "[ -f \"$HOME/.zshrc\" ] && . \"$HOME/.zshrc\" 2>/dev/null ; " +
+                "[ -f \"$HOME/.bashrc\" ] && . \"$HOME/.bashrc\" 2>/dev/null ; " +
+                "sleep 0.15 ; " +
+                "draw_divider() { shopt -s checkwinsize 2>/dev/null; (:;:) 2>/dev/null; local cols=$(tput cols 2>/dev/null); [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=$(stty size 2>/dev/null | awk '{print $2}'); [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=${COLUMNS:-0}; [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=45; local target=$((cols > 2 ? cols - 1 : cols)); local d=\"────────────────────────────────────────────────────────────────────────────────────────────────────\"; local line=\"\"; while [ ${#line} -lt \"$target\" ]; do line=\"${line}${d}\"; done; echo -e \"\\033[90m${line:0:$target}\\033[0m\"; } ; " +
+                "echo -e '\\033[1;32m●\\033[0m \\033[1;33mTermux Play Store: " + title.replace("'", "'\\''") + "\\033[0m' ; " +
+                "echo -e '\\033[1;34m$ " + shellCommand.replace("'", "'\\''").replace("\n", " ; ") + "\\033[0m' ; " +
+                "draw_divider ; " +
+                shellCommand.replace("\n", " ; ") + " ; " +
+                "EXIT_CODE=$? ; " +
+                "draw_divider ; " +
+                "if [ $EXIT_CODE -eq 0 ]; then " +
+                "  echo -e '\\033[1;32m●\\033[0m \\033[1;33mProceso finalizado con éxito (código 0)\\033[0m' ; " +
+                postBanner.replace("\n", " ; ") + " " +
+                "else " +
+                "  echo -e '\\033[1;31m●\\033[0m \\033[1;33mError al ejecutar (código '$EXIT_CODE')\\033[0m' ; " +
+                "fi ; " +
+                "echo '' ; " +
+                "echo 'Sesión activa para auditar y depurar' ; " +
+                "echo 'Escribe exit cuando desees cerrar esta sesión manualmente' ; " +
+                "echo '' ; " +
                 "exec ${SHELL:-/data/data/com.termux/files/usr/bin/bash}\n";
 
             String executablePath = TermuxConstants.TERMUX_BIN_PREFIX_DIR_PATH + "/bash";
