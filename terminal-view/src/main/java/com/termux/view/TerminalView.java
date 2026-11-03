@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -36,6 +37,9 @@ import android.widget.Scroller;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.view.inputmethod.EditorInfoCompat;
+import androidx.core.view.inputmethod.InputConnectionCompat;
+import androidx.core.view.inputmethod.InputContentInfoCompat;
 
 import com.termux.terminal.KeyHandler;
 import com.termux.terminal.TerminalEmulator;
@@ -307,48 +311,62 @@ public final class TerminalView extends View {
 
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
-        // Ensure that inputType is only set if TerminalView is selected view with the keyboard and
-        // an alternate view is not selected, like an EditText. This is necessary if an activity is
-        // initially started with the alternate view or if activity is returned to from another app
-        // and the alternate view was the one selected the last time.
-        if (mClient.isTerminalViewSelected()) {
-            if (mClient.shouldEnforceCharBasedInput()) {
-                // Some keyboards seems do not reset the internal state on TYPE_NULL.
-                // Affects mostly Samsung stock keyboards.
-                // https://github.com/termux/termux-app/issues/686
-                // However, this is not a valid value as per AOSP since `InputType.TYPE_CLASS_*` is
-                // not set and it logs a warning:
-                // W/InputAttributes: Unexpected input class: inputType=0x00080090 imeOptions=0x02000000
-                // https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:packages/inputmethods/LatinIME/java/src/com/android/inputmethod/latin/InputAttributes.java;l=79
-                outAttrs.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
-            } else {
-                // Using InputType.NULL is the most correct input type and avoids issues with other hacks.
-                //
-                // Previous keyboard issues:
-                // https://github.com/termux/termux-packages/issues/25
-                // https://github.com/termux/termux-app/issues/87.
-                // https://github.com/termux/termux-app/issues/126.
-                // https://github.com/termux/termux-app/issues/137 (japanese chars and TYPE_NULL).
-                outAttrs.inputType = InputType.TYPE_NULL;
-            }
-        } else {
-            // Corresponds to android:inputType="text"
-            outAttrs.inputType =  InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL;
+        // WhatsApp-like input configuration so Gboard exposes the full clipboard suggestion strip
+        // (including recent copied text snippets, screenshots and images)
+        outAttrs.inputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+        outAttrs.imeOptions = EditorInfo.IME_FLAG_NO_FULLSCREEN | EditorInfo.IME_FLAG_NO_EXTRACT_UI;
+
+        // Support rich content (e.g. image clipboard suggestions from Gboard)
+        String[] mimeTypes = new String[]{
+            "image/png",
+            "image/jpeg",
+            "image/jpg",
+            "image/gif",
+            "image/webp",
+            "image/*"
+        };
+        EditorInfoCompat.setContentMimeTypes(outAttrs, mimeTypes);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            outAttrs.contentMimeTypes = mimeTypes;
         }
 
-        // Note that IME_ACTION_NONE cannot be used as that makes it impossible to input newlines using the on-screen
-        // keyboard on Android TV (see https://github.com/termux/termux-app/issues/221).
-        outAttrs.imeOptions = EditorInfo.IME_FLAG_NO_FULLSCREEN;
+        InputConnection baseInputConnection = new BaseInputConnection(this, true) {
 
-        return new BaseInputConnection(this, true) {
+            @Override
+            public boolean sendKeyEvent(KeyEvent event) {
+                if (TERMINAL_VIEW_KEY_LOGGING_ENABLED) {
+                    mClient.logInfo(LOG_TAG, "IME: sendKeyEvent(" + event + ")");
+                }
+                if (mTermSession != null && !mTermSession.isRunning()) {
+                    int keyCode = event.getKeyCode();
+                    if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+                        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                            mClient.onCodePoint('\r', false, mTermSession);
+                        }
+                        return true;
+                    } else if (event.getAction() == KeyEvent.ACTION_MULTIPLE) {
+                        String characters = event.getCharacters();
+                        if (characters != null && (characters.contains("\r") || characters.contains("\n"))) {
+                            mClient.onCodePoint('\r', false, mTermSession);
+                            return true;
+                        }
+                    }
+                }
+                return super.sendKeyEvent(event);
+            }
 
             @Override
             public boolean finishComposingText() {
                 if (TERMINAL_VIEW_KEY_LOGGING_ENABLED) mClient.logInfo(LOG_TAG, "IME: finishComposingText()");
                 super.finishComposingText();
 
-                sendTextToTerminal(getEditable());
-                getEditable().clear();
+                if (mEmulator == null) return true;
+
+                Editable content = getEditable();
+                if (content != null && content.length() > 0) {
+                    sendTextToTerminal(content);
+                    content.clear();
+                }
                 return true;
             }
 
@@ -357,14 +375,46 @@ public final class TerminalView extends View {
                 if (TERMINAL_VIEW_KEY_LOGGING_ENABLED) {
                     mClient.logInfo(LOG_TAG, "IME: commitText(\"" + text + "\", " + newCursorPosition + ")");
                 }
+                if (mTermSession != null && !mTermSession.isRunning()) {
+                    if (text != null) {
+                        for (int i = 0; i < text.length(); i++) {
+                            char c = text.charAt(i);
+                            if (c == '\r' || c == '\n') {
+                                mClient.onCodePoint('\r', false, mTermSession);
+                                return true;
+                            }
+                        }
+                    }
+                }
                 super.commitText(text, newCursorPosition);
 
                 if (mEmulator == null) return true;
 
                 Editable content = getEditable();
-                sendTextToTerminal(content);
-                content.clear();
+                if (content != null && content.length() > 0) {
+                    sendTextToTerminal(content);
+                    content.clear();
+                }
                 return true;
+            }
+
+            @Override
+            public boolean setComposingText(CharSequence text, int newCursorPosition) {
+                if (TERMINAL_VIEW_KEY_LOGGING_ENABLED) {
+                    mClient.logInfo(LOG_TAG, "IME: setComposingText(\"" + text + "\", " + newCursorPosition + ")");
+                }
+                if (mTermSession != null && !mTermSession.isRunning()) {
+                    if (text != null) {
+                        for (int i = 0; i < text.length(); i++) {
+                            char c = text.charAt(i);
+                            if (c == '\r' || c == '\n') {
+                                mClient.onCodePoint('\r', false, mTermSession);
+                                return true;
+                            }
+                        }
+                    }
+                }
+                return super.setComposingText(text, newCursorPosition);
             }
 
             @Override
@@ -372,14 +422,40 @@ public final class TerminalView extends View {
                 if (TERMINAL_VIEW_KEY_LOGGING_ENABLED) {
                     mClient.logInfo(LOG_TAG, "IME: deleteSurroundingText(" + leftLength + ", " + rightLength + ")");
                 }
-                // The stock Samsung keyboard with 'Auto check spelling' enabled sends leftLength > 1.
-                KeyEvent deleteKey = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL);
-                for (int i = 0; i < leftLength; i++) sendKeyEvent(deleteKey);
+                KeyEvent deleteKeyDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL);
+                KeyEvent deleteKeyUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL);
+                for (int i = 0; i < leftLength; i++) {
+                    sendKeyEvent(deleteKeyDown);
+                    sendKeyEvent(deleteKeyUp);
+                }
                 return super.deleteSurroundingText(leftLength, rightLength);
+            }
+
+            @Override
+            public boolean performEditorAction(int actionCode) {
+                if (TERMINAL_VIEW_KEY_LOGGING_ENABLED) {
+                    mClient.logInfo(LOG_TAG, "IME: performEditorAction(" + actionCode + ")");
+                }
+                if (mTermSession != null && !mTermSession.isRunning()) {
+                    mClient.onCodePoint('\r', false, mTermSession);
+                    return true;
+                }
+                sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
+                sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER));
+                return true;
             }
 
             void sendTextToTerminal(CharSequence text) {
                 stopTextSelectionMode();
+                if (mTermSession != null && !mTermSession.isRunning()) {
+                    for (int i = 0; i < text.length(); i++) {
+                        char c = text.charAt(i);
+                        if (c == '\r' || c == '\n') {
+                            mClient.onCodePoint('\r', false, mTermSession);
+                            return;
+                        }
+                    }
+                }
                 final int textLengthInChars = text.length();
                 for (int i = 0; i < textLengthInChars; i++) {
                     char firstChar = text.charAt(i);
@@ -435,6 +511,23 @@ public final class TerminalView extends View {
             }
 
         };
+
+        InputConnectionCompat.OnCommitContentListener commitContentListener = new InputConnectionCompat.OnCommitContentListener() {
+            @Override
+            public boolean onCommitContent(InputContentInfoCompat inputContentInfo, int flags, Bundle opts) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 && (flags & InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION) != 0) {
+                    try {
+                        inputContentInfo.requestPermission();
+                    } catch (Exception e) {
+                        mClient.logError(LOG_TAG, "Failed to request permission for rich content: " + e.getMessage());
+                        return false;
+                    }
+                }
+                return mClient.onCommitContent(inputContentInfo, flags, opts);
+            }
+        };
+
+        return InputConnectionCompat.createWrapper(baseInputConnection, outAttrs, commitContentListener);
     }
 
     @Override
@@ -767,9 +860,55 @@ public final class TerminalView extends View {
      * https://cs.android.com/android/platform/superproject/+/android-11.0.0_r40:frameworks/base/services/core/jni/com_android_server_input_InputManagerService.cpp;l=616
      */
     @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (mTermSession != null && !mTermSession.isRunning()) {
+            int keyCode = event.getKeyCode();
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    mClient.onCodePoint('\r', false, mTermSession);
+                }
+                return true;
+            } else if (event.getAction() == KeyEvent.ACTION_MULTIPLE) {
+                String characters = event.getCharacters();
+                if (characters != null && (characters.contains("\r") || characters.contains("\n"))) {
+                    mClient.onCodePoint('\r', false, mTermSession);
+                    return true;
+                }
+            }
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public boolean dispatchKeyEventPreIme(KeyEvent event) {
+        if (mTermSession != null && !mTermSession.isRunning()) {
+            int keyCode = event.getKeyCode();
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    mClient.onCodePoint('\r', false, mTermSession);
+                }
+                return true;
+            } else if (event.getAction() == KeyEvent.ACTION_MULTIPLE) {
+                String characters = event.getCharacters();
+                if (characters != null && (characters.contains("\r") || characters.contains("\n"))) {
+                    mClient.onCodePoint('\r', false, mTermSession);
+                    return true;
+                }
+            }
+        }
+        return super.dispatchKeyEventPreIme(event);
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (TERMINAL_VIEW_KEY_LOGGING_ENABLED)
             mClient.logInfo(LOG_TAG, "onKeyDown(keyCode=" + keyCode + ", isSystem()=" + event.isSystem() + ", event=" + event + ")");
+        if (mTermSession != null && !mTermSession.isRunning()) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+                mClient.onCodePoint('\r', false, mTermSession);
+                return true;
+            }
+        }
         if (mEmulator == null) return true;
         if (isSelectingText()) {
             stopTextSelectionMode();
@@ -781,6 +920,13 @@ public final class TerminalView extends View {
         } else if (event.isSystem() && (!mClient.shouldBackButtonBeMappedToEscape() || keyCode != KeyEvent.KEYCODE_BACK)) {
             return super.onKeyDown(keyCode, event);
         } else if (event.getAction() == KeyEvent.ACTION_MULTIPLE && keyCode == KeyEvent.KEYCODE_UNKNOWN) {
+            if (mTermSession != null && !mTermSession.isRunning()) {
+                String characters = event.getCharacters();
+                if (characters != null && (characters.contains("\r") || characters.contains("\n"))) {
+                    mClient.onCodePoint('\r', false, mTermSession);
+                    return true;
+                }
+            }
             mTermSession.write(event.getCharacters());
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_LANGUAGE_SWITCH) {
@@ -956,6 +1102,13 @@ public final class TerminalView extends View {
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (TERMINAL_VIEW_KEY_LOGGING_ENABLED)
             mClient.logInfo(LOG_TAG, "onKeyUp(keyCode=" + keyCode + ", event=" + event + ")");
+
+        if (mTermSession != null && !mTermSession.isRunning()) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+                mClient.onCodePoint('\r', false, mTermSession);
+                return true;
+            }
+        }
 
         // Do not return for KEYCODE_BACK and send it to the client since user may be trying
         // to exit the activity.

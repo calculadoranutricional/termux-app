@@ -32,21 +32,24 @@
 
         <!-- Extra keys colors. -->
         <item name="extraKeysButtonTextColor">@color/white</item>
-        <item name="extraKeysButtonActiveTextColor">@color/red_400</item>
+        <item name="extraKeysButtonActiveTextColor">@color/cyan</item>
         <item name="extraKeysButtonBackgroundColor">@color/black</item>
         <item name="extraKeysButtonActiveBackgroundColor">@color/grey_500</item>
     </style>
 
-    <!-- TermuxStore theme - Google Play Store aesthetic with zero red -->
+    <!-- TermuxStore theme - Termux Black & White minimalist aesthetic -->
     <style name="Theme.TermuxStore" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#01875F</item>
-        <item name="colorPrimaryVariant">#131314</item>
-        <item name="colorSecondary">#01875F</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="android:statusBarColor">#131314</item>
-        <item name="android:navigationBarColor">#131314</item>
-        <item name="android:windowBackground">#131314</item>
-        <item name="android:textColorPrimary">#E3E3E3</item>
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimaryVariant">#000000</item>
+        <item name="colorSecondary">#FFFFFF</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="colorControlActivated">#FFFFFF</item>
+        <item name="colorControlHighlight">#33FFFFFF</item>
+        <item name="android:statusBarColor">#000000</item>
+        <item name="android:navigationBarColor">#000000</item>
+        <item name="android:windowBackground">#000000</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
         <item name="android:textColorSecondary">#9AA0A6</item>
     </style>
 
