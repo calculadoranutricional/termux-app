@@ -1010,42 +1010,53 @@ public class TermuxStoreActivity extends AppCompatActivity implements StorePacka
 
     private void executeShellCommandInTerminal(@NonNull StorePackageItem item, String title, String shellCommand, boolean isUninstall) {
         try {
+            File homeDir = new File(TermuxConstants.TERMUX_HOME_DIR_PATH);
+            if (!homeDir.exists()) homeDir.mkdirs();
+            File scriptFile = new File(homeDir, ".termux_action.sh");
+
             String postBanner = isUninstall ? "" : buildPostInstallBanner(item);
 
-            String fullCommandString =
-                "[ -f /data/data/com.termux/files/usr/lib/libtermux-exec.so ] && export LD_PRELOAD=/data/data/com.termux/files/usr/lib/libtermux-exec.so ; " +
-                "export PREFIX=/data/data/com.termux/files/usr ; " +
-                "export HOME=/data/data/com.termux/files/home ; " +
-                "export PATH=$PREFIX/bin:$HOME/.local/bin:$HOME/go/bin:$PATH ; " +
-                "[ -f /data/data/com.termux/files/usr/etc/profile ] && . /data/data/com.termux/files/usr/etc/profile 2>/dev/null ; " +
-                "[ -f \"$HOME/.zshrc\" ] && . \"$HOME/.zshrc\" 2>/dev/null ; " +
-                "[ -f \"$HOME/.bashrc\" ] && . \"$HOME/.bashrc\" 2>/dev/null ; " +
-                "sleep 0.15 ; " +
-                "draw_divider() { shopt -s checkwinsize 2>/dev/null; (:;:) 2>/dev/null; local cols=$(tput cols 2>/dev/null); [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=$(stty size 2>/dev/null | awk '{print $2}'); [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=${COLUMNS:-0}; [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=45; local target=$((cols > 2 ? cols - 1 : cols)); local d=\"────────────────────────────────────────────────────────────────────────────────────────────────────\"; local line=\"\"; while [ ${#line} -lt \"$target\" ]; do line=\"${line}${d}\"; done; echo -e \"\\033[90m${line:0:$target}\\033[0m\"; } ; " +
-                "echo -e '\\033[1;32m●\\033[0m \\033[1;33mTermux Play Store: " + title.replace("'", "'\\''") + "\\033[0m' ; " +
-                "echo -e '\\033[1;34m$ " + shellCommand.replace("'", "'\\''").replace("\n", " ; ") + "\\033[0m' ; " +
-                "draw_divider ; " +
-                shellCommand.replace("\n", " ; ") + " ; " +
-                "EXIT_CODE=$? ; " +
-                "draw_divider ; " +
-                "if [ $EXIT_CODE -eq 0 ]; then " +
-                "  echo -e '\\033[1;32m●\\033[0m \\033[1;33mProceso finalizado con éxito (código 0)\\033[0m' ; " +
-                postBanner.replace("\n", " ; ") + " " +
-                "else " +
-                "  echo -e '\\033[1;31m●\\033[0m \\033[1;33mError al ejecutar (código '$EXIT_CODE')\\033[0m' ; " +
-                "fi ; " +
-                "echo '' ; " +
-                "echo 'Sesión activa para auditar y depurar' ; " +
-                "echo 'Escribe exit cuando desees cerrar esta sesión manualmente' ; " +
-                "echo '' ; " +
-                "exec ${SHELL:-/data/data/com.termux/files/usr/bin/bash}\n";
+            String scriptContent = "#!/data/data/com.termux/files/usr/bin/bash\n" +
+                "sleep 0.15\n" +
+                "draw_divider() {\n" +
+                "  shopt -s checkwinsize 2>/dev/null\n" +
+                "  (:;:) 2>/dev/null\n" +
+                "  local cols=$(tput cols 2>/dev/null)\n" +
+                "  [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=$(stty size 2>/dev/null | awk '{print $2}')\n" +
+                "  [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=${COLUMNS:-0}\n" +
+                "  [ -z \"$cols\" ] || [ \"$cols\" -le 0 ] 2>/dev/null && cols=45\n" +
+                "  local target=$((cols > 2 ? cols - 1 : cols))\n" +
+                "  local d=\"────────────────────────────────────────────────────────────────────────────────────────────────────\"\n" +
+                "  local line=\"\"\n" +
+                "  while [ ${#line} -lt \"$target\" ]; do line=\"${line}${d}\"; done\n" +
+                "  echo -e \"\\033[90m${line:0:$target}\\033[0m\"\n" +
+                "}\n" +
+                "echo -e '\\033[1;32m●\\033[0m \\033[1;33mTermux Play Store: " + title.replace("'", "'\\''") + "\\033[0m'\n" +
+                "echo -e '\\033[1;34m$ " + shellCommand.replace("'", "'\\''") + "\\033[0m'\n" +
+                "draw_divider\n" +
+                shellCommand + "\n" +
+                "EXIT_CODE=$?\n" +
+                "draw_divider\n" +
+                "if [ $EXIT_CODE -eq 0 ]; then\n" +
+                "  echo -e '\\033[1;32m●\\033[0m \\033[1;33mProceso finalizado con éxito (código 0)\\033[0m'\n" +
+                postBanner +
+                "else\n" +
+                "  echo -e '\\033[1;31m●\\033[0m \\033[1;33mError al ejecutar (código '$EXIT_CODE')\\033[0m'\n" +
+                "fi\n" +
+                "echo ''\n" +
+                "echo 'Sesión activa para auditar y depurar'\n" +
+                "echo 'Escribe exit cuando desees cerrar esta sesión manualmente'\n" +
+                "echo ''\n" +
+                "exec ${SHELL:-bash}\n";
 
-            String executablePath = TermuxConstants.TERMUX_BIN_PREFIX_DIR_PATH + "/bash";
-            final Uri bashUri = UriUtils.getFileUri(executablePath);
+            try (FileOutputStream fos = new FileOutputStream(scriptFile)) {
+                fos.write(scriptContent.getBytes());
+            }
+            scriptFile.setExecutable(true, false);
 
-            Intent executeIntent = new Intent(TERMUX_SERVICE.ACTION_SERVICE_EXECUTE, bashUri);
+            Intent executeIntent = new Intent(TERMUX_SERVICE.ACTION_SERVICE_EXECUTE);
             executeIntent.setClass(this, TermuxService.class);
-            executeIntent.putExtra(TERMUX_SERVICE.EXTRA_ARGUMENTS, new String[]{"-l", "-c", fullCommandString});
+            executeIntent.putExtra(TERMUX_SERVICE.EXTRA_ARGUMENTS, new String[]{"-c", "bash ~/.termux_action.sh"});
             executeIntent.putExtra(TERMUX_SERVICE.EXTRA_SHELL_NAME, title);
             startService(executeIntent);
 
