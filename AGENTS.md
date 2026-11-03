@@ -51,4 +51,5 @@ In repositories where `.codegraph/` exists, CodeGraph serves as the mandatory st
 
 4. **Mandatory Index Synchronization**:
    - You **MUST** run `codegraph sync --no-color` immediately after creating, modifying, or deleting source files to preserve index freshness for downstream tasks.
+
 <!-- CODEGRAPH:END -->
