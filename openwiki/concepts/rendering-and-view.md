@@ -1,8 +1,8 @@
 ---
 type: concept
 title: Terminal View & Rendering
-description: UI rendering, touch gestures, touch input handling, and text selection in terminal-view.
-tags: [terminal-view, rendering, gestures, text-selection, ui]
+description: UI rendering, touch gestures, input connection handling, accessibility, and text selection in terminal-view.
+tags: [terminal-view, rendering, gestures, text-selection, ui, ime]
 sources:
   - id: openwiki-source-41513c8b69c3676c80d7e986
     resource: repo://terminal-view/src/main/java/com/termux/view/GestureAndScaleRecognizer.java
@@ -12,19 +12,19 @@ sources:
     resource: repo://terminal-view/src/main/java/com/termux/view/TerminalView.java
   - id: openwiki-source-fe567dfc051190bb059fe863
     resource: repo://terminal-view/src/main/java/com/termux/view/textselection/TextSelectionCursorController.java
-generated: { by: "openwiki/0.7.2", at: "2026-10-26T20:00:32.746Z" }
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
+    at: 2026-11-03T15:55:06.215Z
+generated: { by: "openwiki/0.7.2", at: "2026-11-03T15:55:06.215Z" }
 ---
 
 # Terminal View & Rendering
 
-The `terminal-view` library provides the graphical Android UI component (`TerminalView`), rendering engine (`TerminalRenderer`), touch gesture recognition (`GestureAndScaleRecognizer`), and text selection controllers (`TextSelectionCursorController`, `TextSelectionHandleView`) that display and interact with a underlying `TerminalSession` and `TerminalEmulator` from `terminal-emulator`.
+The `terminal-view` library provides the graphical Android UI component (`TerminalView`), rendering engine (`TerminalRenderer`), touch gesture recognition (`GestureAndScaleRecognizer`), and text selection controllers (`TextSelectionCursorController`, `TextSelectionHandleView`) that display and interact with an underlying `TerminalSession` and `TerminalEmulator` from `terminal-emulator`.
 
 ## Architectural Overview & Responsibilities
 
-`TerminalView` extends Android's `View` class and acts as the central coordinator between user interactions (touch, mouse, keyboard, IME, accessibility) and the terminal emulation core.
+`TerminalView` extends Android's `View` class and acts as the central coordinator between user interactions (touch, mouse, hardware keyboard, software IME input connection, accessibility) and the terminal emulation core.
 
 ```mermaid
 graph TD
@@ -36,6 +36,7 @@ graph TD
     TR -->|draws grid & bitmaps| C["Android Canvas"]
     GR -->|MotionEvent callbacks| TV
     TS -->|handles selection handles| TV
+    TV -->|InputConnection / IME| SK["Software Keyboard / Gboard"]
 ```
 *Architecture and component relationships in terminal-view.*
 
@@ -77,10 +78,12 @@ When terminal applications activate mouse tracking (e.g., `xterm` mouse reportin
 
 ---
 
-## Keyboard, IME, & Hardware Keys
+## Keyboard, IME, & InputConnection
 
-`TerminalView` implements full keyboard handling:
-- **`onCreateInputConnection`**: Returns a custom `InputConnection` supporting software keyboards, IMEs, composing text, committing text, and character deletion (handling combining accents and surrogate pairs).
+`TerminalView` implements robust keyboard and IME integration:
+- **`onCreateInputConnection`**: Returns a custom `InputConnection` (built on `BaseInputConnection`) configured with multi-line text input, rich content MIME types (for image and clipboard snippet suggestions from Gboard), and IME flags preventing full-screen extraction mode.
+- **Composing & Committing Text**: Intercepts `commitText` and `finishComposingText` to flush composing strings into terminal input bytes, handling character insertion and newlines correctly.
+- **`sendKeyEvent` & Hardware Keys**: Intercepts hardware and soft keyboard key events, translating enter keys, special keys, and character inputs when the session is running or stopped.
 - **`onKeyDown` / `onKeyUp`**: Maps hardware keyboard `KeyEvent` objects through `KeyHandler` and `TerminalEmulator` to generate correct escape sequences or character inputs.
 - **Key Logging**: Optional debug logging controlled by `setIsTerminalViewKeyLoggingEnabled`.
 

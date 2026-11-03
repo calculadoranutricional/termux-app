@@ -1,8 +1,8 @@
 ---
 type: concept
-title: Terminal Emulation Engine
-description: Core terminal emulation engine, buffer management, character width calculations, and escape sequence processing.
-tags: [terminal-emulator, vt100, ansi, csi, osc, screen-buffer, character-width]
+title: Terminal Emulation
+description: Core terminal emulator state machine, VT/ANSI escape sequence parsing, screen buffer management, and key test cases.
+tags: [terminal-emulator, vt100, ansi, csi, osc, dcs, apc, screen-buffer, character-width, decset]
 sources:
   - id: openwiki-source-972b33d2e5c9563651112440
     resource: repo://terminal-emulator/src/main/java/com/termux/terminal/KeyHandler.java
@@ -14,23 +14,25 @@ sources:
     resource: repo://terminal-emulator/src/main/java/com/termux/terminal/TerminalRow.java
   - id: openwiki-source-5662f6220e676e770ea00fc4
     resource: repo://terminal-emulator/src/main/java/com/termux/terminal/WcWidth.java
-generated: { by: "openwiki/0.7.2", at: "2026-10-26T20:00:32.746Z" }
+  - id: openwiki-source-5cf6b26edae77d3e32a32b7f
+    resource: repo://terminal-emulator/src/test/java/com/termux/terminal/DecSetTest.java
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
+    at: 2026-11-03T15:55:06.215Z
+generated: { by: "openwiki/0.7.2", at: "2026-11-03T15:55:06.215Z" }
 ---
 
-# Terminal Emulation Engine
+# Terminal Emulation
 
-The Terminal Emulation Engine is the core component responsible for interpreting raw input streams from shell processes, maintaining screen and scrollback buffers, processing ANSI/VT escape sequences, tracking cursor state, and translating user input keystrokes. It emulates a subset of the X Window System `xterm` terminal, which in turn emulates a subset of Digital Equipment Corporation (DEC) VT100 and VT220 terminals.
+The Terminal Emulation subsystem is the core component responsible for interpreting raw input streams from shell processes, maintaining screen and scrollback buffers, processing ANSI/VT escape sequences, tracking cursor state, and translating user input keystrokes. It emulates a subset of the X Window System `xterm` terminal, which in turn emulates a subset of Digital Equipment Corporation (DEC) VT100 and VT220 terminals.
 
 ## Architecture & Responsibilities
 
-The terminal emulation subsystem is housed in the `com.termux.terminal` package and comprises several key classes:
+The terminal emulation subsystem is housed in the `com.termux.terminal` package and comprises several key classes and modules:
 - **`TerminalEmulator`**: Implements the state machine for processing code points, control characters, and escape sequences (CSI, OSC, DCS, APC), managing cursor positioning, margins, character sets, and graphic rendition attributes.
 - **`TerminalBuffer`**: Manages the backing character and style storage, combining both active screen rows and scrollback history rows.
 - **`TerminalRow`**: Represents an individual row of text on the screen or scrollback history, storing code points, styles, and line-wrapping flags.
-- **`TerminalSession`**: Orchestrates the lifetime of a terminal session, bridging the pseudo-terminal (pty) input/output streams, `TerminalEmulator`, `TerminalBuffer`, and client callbacks.
+- **`TerminalSession`**: Orchestrates the lifetime of a terminal session, bridging pseudo-terminal (pty) input/output streams, `TerminalEmulator`, `TerminalBuffer`, and client callbacks.
 - **`KeyHandler`**: Translates Android key events and key combinations into the corresponding escape sequences or raw character inputs expected by shells.
 - **`WcWidth`**: Calculates Unicode character display widths (East Asian Width / Unicode width tables) to ensure correct column alignment and multi-column glyph handling.
 
@@ -61,6 +63,7 @@ stateDiagram-v2
 
     Execution --> ESC_NONE : Complete Sequence
 ```
+State machine and escape sequence processing flow in `TerminalEmulator`.
 
 ## State Machine & Escape Sequence Processing
 
@@ -107,6 +110,14 @@ Accurate column positioning in a fixed-width terminal requires determining the d
 - Maps standard keys, function keys (`F1`-`F12`), navigation keys (Arrow keys, Home, End, Page Up, Page Down), and modifier combinations (Control, Alt, Shift).
 - Supports application cursor key mode (`DECCKM`) and application keypad mode, altering the sequences emitted for arrow and numeric keypad keys.
 - Handles modifier state propagation (e.g., `CTRL+C` producing `0x03`).
+
+## Key Test Cases & Verification (`DecSetTest`)
+
+Comprehensive unit tests validate terminal emulation behavior across modes and escape sequences. For example, `DecSetTest` verifies DEC private modes (`DECSET` / `DECRST`) and queries (`DECRQM`):
+- **Cursor Visibility (`DECTCEM` - DECSET 25)**: Ensures `\033[?25l` disables the cursor, `\033[?25h` enables it, and hard terminal resets (`\033c` or `reset()`) properly restore cursor visibility.
+- **Bracketed Paste Mode (DECSET 2004)**: Validates that enabling bracketed paste wraps pasted input strings in `\033[200~` and `\033[201~`, stripping internal escape and C1 control characters, while disabling it outputs raw text.
+- **Wraparound Mode (`DECAWM` - DECSET 7)**: Verifies that text exceeding the right margin wraps to the next line when enabled, but overwrites the rightmost column when disabled.
+- **DEC Request Mode (`DECRQM`)**: Tests mode queries (e.g., cursor blink `?12$p`, insert/replace mode `4$p`) returning correct status replies (`$y`).
 
 ## Related Pages
 - [Architecture Overview](../architecture/overview.md)

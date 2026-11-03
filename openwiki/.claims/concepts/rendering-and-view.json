@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:3f4e8bb4f708d41d63779b0944468cd71332bc958a00e0021cee2c71809954fd",
+  "pageVersion": "sha256:eff12484f2d99a5f8b233ea84d8fc2c3678c79f7c2f799ede4fa057d555d36a3",
   "claims": [
     {
       "id": "claim_096dcb1c13ba4d388a1190fe982772a1",
       "statement": "TerminalView acts as the central Android View coordinating user interactions, touch gestures, IME input, and session rendering.",
       "evidence": [
         {
-          "resource": "repo://terminal-view/src/main/java/com/termux/view/TerminalView.java#L45-L60",
+          "resource": "repo://terminal-view/src/main/java/com/termux/view/TerminalView.java#L49-L64",
           "version": "repo-lines-v1:sha256:4c9fdd5598d33b37742d719f90f50c8230cb82ae9f16629e8f822739b15239c1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNiNGFmYTNiNDM3N2JiNmM3MTI3NTliYWYwMDY3ZTQxYjUzMTUzYjU1NTEzM2Y4YzhiYjZlMzZmOThjYmRmNjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIxZTU3YzgyNjYwMWQ1MGE0MTg4N2IwOGY4N2MwODU5ZTQxZWRiMTMxNzM1ZTk0OWRjYWQ0ODU2M2QzYjY4MzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5ZTA3MzZmYTRiYjQ3MGZhNjkzMWI1MWJjYjMxNzVjZDJhZjIyOTA1MWU1MTJiOTc3OTFkNGEzN2I3YTRiNDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQzYzQyYzExMWExMTM2OTgwYWFiZTk4Yzk0ZmVkY2Q3MjA5MWViY2E1ZmQ2MTBhZDE4ZDZmYmY0OTFmN2EzZjIifQ"
         }
       ]
@@ -44,17 +44,17 @@
     },
     {
       "id": "claim_1b6d82991eff4fb79dde454c1c52d74b",
-      "statement": "TerminalView provides an InputConnection implementation for software keyboards and IMEs to commit text, handle composing text, and send key events.",
+      "statement": "TerminalView provides an InputConnection implementation for software keyboards and IMEs to commit text, handle composing text, rich content MIME types, and send key events.",
       "evidence": [
         {
-          "resource": "repo://terminal-view/src/main/java/com/termux/view/TerminalView.java#L309-L380",
-          "version": "repo-lines-v1:sha256:30084e15d8705839aff920bfd58a66dd7c4cc7098fb1bd3e4ad4e5d15bebe94c:eyJzZWxlY3RlZExpbmVDb3VudCI6NzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhOGE0ZDhiMzM5MTU2YjE2YjFhOGMyZmNjZDExMmM4MGE0NmU0NzRhMzRmMTJhNmNiYzE1NmEzMWFlOTJlYzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM2OTQ2ZTEwMWU1ZTc4ZDkwYTUxMGM2OWYyNjZlZjc2NTQwZDMwOWIxYjgyMjY5NWI1MzE3MmVkMmNhYTAyNTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1MTE1NDliMDMxZmQxNGQ2MWFkMTZmYThlYWY3ODllNmMwOGIwOTIyZWMzZDk0MmIyMmVmNDk5NWQyMzgyNzQifQ"
+          "resource": "repo://terminal-view/src/main/java/com/termux/view/TerminalView.java#L309-L398",
+          "version": "repo-lines-v1:sha256:32327f856a2f4a9ab7bdd8b04400200290547dc156e787334462220bdab47783:eyJzZWxlY3RlZExpbmVDb3VudCI6OTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU4OTAwMDY2ZTZhMzI2YjE5ZTE5NGZkNWJjMmVhZTQ4ZTcwMjNmNTY3MWQ4M2M1NzA1YzA1YjRlZWU1OTdlN2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyMjg2NjQ5M2EyYjU4ZjcyZTU4MGY4Nzc0MjdmYzBkMDI5NzY0OTA1YjY4ZWIxMDcyYzJmM2VkZmNlZTRmMzQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1N2RmZjA0ODMwODNkYjc4YjFiNzlmNGVmMjM2MmNkYjk2NjJlYmYwNjIwMTE1ZjE3MWZkNzA5MDMzMGRjZTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA4OGNlNDEwZDhhZWE3M2FkNGNkYjk4ZWFiNGJkNDAwMmY3Mzg2ZmY2Yjc3YWY3N2M3NGViZWFmYTQ2MWEyMGIifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-26T20:00:32.746Z"
+    "at": "2026-11-03T15:55:06.215Z"
   }
 }

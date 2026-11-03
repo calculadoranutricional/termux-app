@@ -10,15 +10,15 @@ sources:
     resource: repo://app/src/main/java/com/termux/app/TermuxApplication.java
   - id: openwiki-source-84966089f535a69b6da761e1
     resource: repo://app/src/main/java/com/termux/app/TermuxService.java
-generated: { by: "openwiki/0.7.2", at: "2026-10-26T20:00:32.746Z" }
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-26T20:00:32.746Z
+    at: 2026-11-03T15:55:06.215Z
+generated: { by: "openwiki/0.7.2", at: "2026-11-03T15:55:06.215Z" }
 ---
 
 # System Architecture Overview
 
-Termux-App is an Android terminal emulator and Linux environment application structured around a clean separation of concerns between application presentation (`TermuxActivity`), long-running background execution and session management (`TermuxService`), application bootstrapping and global initializations (`TermuxApplication`), and plugin/API integration components (such as broadcast receivers and remote action intents).
+Termux-App is an Android terminal emulator and Linux environment application structured around a clean separation of concerns between application presentation (`TermuxActivity`), long-running background execution and session management (`TermuxService`), application bootstrapping and global initializations (`TermuxApplication`), and plugin/API integration components (such as broadcast receivers, store management activities, and remote action intents).
 
 ## Architectural Topology & Component Relationships
 
@@ -83,3 +83,7 @@ sequenceDiagram
 - **Service Longevity**: `TermuxService` outlives `TermuxActivity`. When the user closes or rotates the activity, unbinding disconnects UI callbacks without terminating active shell sessions or background tasks.
 - **Foreground Persistence**: While sessions or background tasks are active, `TermuxService` maintains a foreground notification, ensuring OS resource allocators prioritize the terminal environment.
 - **Process Model**: All core components run within the main application process, communicating via local binder IPC and direct state managers (`TermuxShellManager`).
+
+## Related Documentation
+- [Modules & Dependencies](../architecture/modules-and-dependencies.md)
+- [Session Lifecycle](../workflows/session-lifecycle.md)

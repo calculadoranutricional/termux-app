@@ -1,20 +1,20 @@
 ---
 type: concept
-title: Quickstart & Wiki Navigation
-description: Central routing and task-oriented overview for the Termux App code wiki.
+title: Quickstart and Navigation Hub
+description: Central navigation hub and quick start guide for developers exploring the Termux App code wiki.
 tags: [quickstart, navigation, routing, architecture, terminal]
 verified:
   - by: openwiki/0.7.2
-    at: 2026-10-28T02:32:52.279Z
+    at: 2026-11-03T15:55:06.215Z
 sources:
   - id: openwiki-source-23775c3de52f3ab95a13cb8b
     resource: repo://README.md
   - id: openwiki-source-12eccab9eb2d86aae390f578
     resource: repo://settings.gradle
-generated: { by: "openwiki/0.7.2", at: "2026-10-26T20:00:32.746Z" }
+generated: { by: "openwiki/0.7.2", at: "2026-11-03T15:55:06.215Z" }
 ---
 
-# Quickstart & Wiki Navigation
+# Quickstart and Navigation Hub
 
 Welcome to the **Termux App Code Wiki**, an in-depth developer documentation reference covering the architecture, internal modules, terminal emulation engine, view rendering, workflows, and execution semantics of the Termux Android application (`termux-app`).
 

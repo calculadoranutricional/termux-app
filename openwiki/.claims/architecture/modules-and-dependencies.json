@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:14b4cbb3590dc8d2d2d5bbfad076730de335da6d0c95b21f16f56dcc2dd7cc53",
+  "pageVersion": "sha256:da9ec323ea4b48fdfe1a0c9326d87796bee965987bbb8bd918afd8e3ac75e288",
   "claims": [
     {
       "id": "claim_1cfa40f893c24e5b9a412de834d1cc49",
       "statement": "The project is structured into four Gradle modules: the application module (:app), which depends on :terminal-view and :termux-shared.",
       "evidence": [
         {
-          "resource": "repo://app/build.gradle#L39-L40",
+          "resource": "repo://app/build.gradle#L40-L41",
           "version": "repo-lines-v1:sha256:f2ad83ea7295d44d0a4b1b1a6674588982d841c1f713c5a52def4477f0c2632f:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTAwZjFhMGM2ZDRmOTM1M2FkNjg3NDZjYzBhNTRlZjE2Njc5ZTBhYjM1MWE3NTE1YTU3MmVkZDJjZTJlYmY3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGVmOGE5YmFlMDhkNDNhYjUzYTM3NmMxYTcwMTg5ZGMyMWVhNWUyN2MxM2U1ZDYzMzVlYTI4NmYwNDNmZTcxNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTdjN2ZmZjJhZmFiMGRlZDk0YjgyM2Q3ZGU2YjI5NWYxZGU4NWVkZDFiMDljNmU5YzJkOTFiY2U5NjJlNjA2MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2JhYzU2NWRkZGVhMzQxYzA3NWM2ZWQwMjJmODU0ODRjOWViNzE3MTJhOTkyZDIzMDdlZGIxNzE2MDUxNDhiNSJ9"
         },
         {
@@ -18,11 +18,11 @@
     },
     {
       "id": "claim_e1cd48628c194a29ae4fd2201988c426",
-      "statement": "The :terminal-view library module provides terminal UI rendering and uses an api dependency on :terminal-emulator.",
+      "statement": "The :terminal-view library module provides terminal UI rendering and uses an api dependency on :terminal-emulator along with AndroidX annotations and core libraries.",
       "evidence": [
         {
-          "resource": "repo://terminal-view/build.gradle#L5-L10",
-          "version": "repo-lines-v1:sha256:4d3bd54b6468378f33e9bcc204e5c6770dcdb5611976434100cdfb83efe5d29f:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODc1OGJkNzYyNzcxNzM3MjU4OTFkNjZmMzQwMzBmN2NhYjIyOGZkNDFjZmMwZjc3ZGI4NDNhY2ZlOGE5OGNiMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTZlNjM0NDRjNWEzYWNlYjE5OWJkNmQ4ZTMwYjkxZDg5NTAxYjBmZTNiMTA5MzkyNmEwNDViM2UzODQ3ZmUyOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzhkYzcwMjk1OTE5ODBkY2ZjZjY4MGMzZDg4NjE1NDI5NzczNDVjMzM0MTc0M2NkZTUxNWQ2Njc5MDkxYWJjYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2JhYzU2NWRkZGVhMzQxYzA3NWM2ZWQwMjJmODU0ODRjOWViNzE3MTJhOTkyZDIzMDdlZGIxNzE2MDUxNDhiNSJ9"
+          "resource": "repo://terminal-view/build.gradle#L5-L12",
+          "version": "repo-lines-v1:sha256:3fa78b4c5f1345c2bf44c4837b7630dfc8379eadb2e96b48d33ef38068d1e4c0:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODc1OGJkNzYyNzcxNzM3MjU4OTFkNjZmMzQwMzBmN2NhYjIyOGZkNDFjZmMwZjc3ZGI4NDNhY2ZlOGE5OGNiMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzhkYzcwMjk1OTE5ODBkY2ZjZjY4MGMzZDg4NjE1NDI5NzczNDVjMzM0MTc0M2NkZTUxNWQ2Njc5MDkxYWJjYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTNhMjVkZmMyZDQ3OGVlM2I2ODUyNmY5NWFiMzA3OWRmZjIzYzU2MmNiZGVjY2JlZDUwMzZiNzY2MGM4ODAxZiJ9"
         }
       ]
     },
@@ -63,6 +63,6 @@
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-26T20:00:32.746Z"
+    "at": "2026-11-03T15:55:06.215Z"
   }
 }

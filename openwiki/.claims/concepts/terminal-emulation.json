@@ -1,14 +1,18 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:065c14215ddaf23fedf3c151e17068e2d1840acba022bc8f4e363d4039f533e2",
+  "pageVersion": "sha256:babf3c508d589438d452ecb1144af17ee43b4e46c01ce80a937063f6bb60c2e2",
   "claims": [
     {
       "id": "claim_2afa0cf60f2042578f9d3f8cfeb5a2a4",
-      "statement": "TerminalEmulator implements the core ANSI/VT terminal state machine handling escape sequences including CSI, OSC, DCS, and APC.",
+      "statement": "TerminalEmulator implements the core ANSI/VT terminal state machine handling escape sequences including CSI, OSC, DCS, and APC, validated by robust tests such as DecSetTest.",
       "evidence": [
         {
           "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/TerminalEmulator.java",
-          "version": "repo-file-v1:sha256:5510c124feb5f863c87683a426738dfed500b273d2b4e467d10ee63ce9b1ca7b"
+          "version": "repo-file-v1:sha256:26ba2086369d38c29476ef93abed2709aa05ffa1b3d84fc0a1b24ab5b704ab28"
+        },
+        {
+          "resource": "repo://terminal-emulator/src/test/java/com/termux/terminal/DecSetTest.java",
+          "version": "repo-file-v1:sha256:a9d5cdc4f453b0e75eaaccdf79d5f6256b1809355fe850f19f7f18382033e6e1"
         }
       ]
     },
@@ -49,6 +53,6 @@
   ],
   "verification": {
     "by": "openwiki/0.7.2",
-    "at": "2026-10-26T20:00:32.746Z"
+    "at": "2026-11-03T15:55:06.215Z"
   }
 }

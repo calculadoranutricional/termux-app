@@ -4,7 +4,7 @@ okf_version: "0.2"
 
 # Files
 
-- [Quickstart & Wiki Navigation](quickstart.md) - Central routing and task-oriented overview for the Termux App code wiki.
+- [Quickstart and Navigation Hub](quickstart.md) - Central navigation hub and quick start guide for developers exploring the Termux App code wiki.
 
 # Directories
 
