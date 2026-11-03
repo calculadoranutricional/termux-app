@@ -280,9 +280,9 @@ public class TermuxStoreActivity extends AppCompatActivity implements StorePacka
             "IA y CLI • Wiki & Arquitectura",
             "Herramienta CLI para generar y consultar documentación de arquitectura, grafos de dependencias y wikis técnicas.",
             R.drawable.ic_pkg_openwiki,
-            "npm install -g --allow-scripts=node-pty,@github/keytar,better-sqlite3 openwiki",
+            "pkg install -y nodejs-lts npm && npm install -g --allow-scripts=node-pty,@github/keytar,better-sqlite3 openwiki",
             "npm uninstall -g openwiki",
-            "npm install -g --allow-scripts=node-pty,@github/keytar,better-sqlite3 openwiki",
+            "pkg install -y nodejs-lts npm && npm install -g --allow-scripts=node-pty,@github/keytar,better-sqlite3 openwiki",
             TermuxConstants.TERMUX_BIN_PREFIX_DIR_PATH + "/openwiki:" + TermuxConstants.TERMUX_HOME_DIR_PATH + "/.local/bin/openwiki",
             "4.9 ★",
             "18 MB",
@@ -870,10 +870,9 @@ public class TermuxStoreActivity extends AppCompatActivity implements StorePacka
             "Google • Asistente de IA",
             "Línea de comandos oficial de Google Gemini para interactuar con modelos de IA, generación de código y automatización multimodal.",
             R.drawable.ic_pkg_gemini,
-            "command -v npm >/dev/null 2>&1 || pkg install -y nodejs-lts\n" +
-            "npm install -g --allow-scripts=node-pty,@github/keytar @google/gemini-cli",
+            "pkg install -y nodejs-lts npm && npm install -g --allow-scripts=node-pty,@github/keytar @google/gemini-cli",
             "npm uninstall -g @google/gemini-cli",
-            "npm install -g --allow-scripts=node-pty,@github/keytar @google/gemini-cli",
+            "pkg install -y nodejs-lts npm && npm install -g --allow-scripts=node-pty,@github/keytar @google/gemini-cli",
             TermuxConstants.TERMUX_BIN_PREFIX_DIR_PATH + "/gemini:" + TermuxConstants.TERMUX_HOME_DIR_PATH + "/.local/bin/gemini",
             "4.9 ★",
             "24 MB",
@@ -890,10 +889,9 @@ public class TermuxStoreActivity extends AppCompatActivity implements StorePacka
             "Google • Framework Web",
             "Herramienta oficial de línea de comandos de Google para inicializar, compilar y mantener aplicaciones Angular.",
             R.drawable.ic_pkg_angular,
-            "command -v npm >/dev/null 2>&1 || pkg install -y nodejs-lts\n" +
-            "npm install -g @angular/cli",
+            "pkg install -y nodejs-lts npm && npm install -g @angular/cli",
             "npm uninstall -g @angular/cli",
-            "npm install -g @angular/cli",
+            "pkg install -y nodejs-lts npm && npm install -g @angular/cli",
             TermuxConstants.TERMUX_BIN_PREFIX_DIR_PATH + "/ng:" + TermuxConstants.TERMUX_HOME_DIR_PATH + "/.local/bin/ng",
             "4.8 ★",
             "28 MB",
@@ -1012,14 +1010,12 @@ public class TermuxStoreActivity extends AppCompatActivity implements StorePacka
 
     private void executeShellCommandInTerminal(@NonNull StorePackageItem item, String title, String shellCommand, boolean isUninstall) {
         try {
-            File scriptDir = new File(getCacheDir(), "store_scripts");
-            if (!scriptDir.exists()) scriptDir.mkdirs();
-            String uniqueName = "run_store_action_" + System.currentTimeMillis() + ".sh";
-            File scriptFile = new File(scriptDir, uniqueName);
-
             String postBanner = isUninstall ? "" : buildPostInstallBanner(item);
 
-            String scriptContent = "#!/data/data/com.termux/files/usr/bin/bash\n" +
+            String fullCommandString =
+                "[ -f /data/data/com.termux/files/usr/etc/profile ] && . /data/data/com.termux/files/usr/etc/profile\n" +
+                "[ -f \"$HOME/.zshrc\" ] && . \"$HOME/.zshrc\" 2>/dev/null\n" +
+                "[ -f \"$HOME/.bashrc\" ] && . \"$HOME/.bashrc\" 2>/dev/null\n" +
                 "sleep 0.15\n" +
                 "draw_divider() {\n" +
                 "  shopt -s checkwinsize 2>/dev/null\n" +
@@ -1034,8 +1030,8 @@ public class TermuxStoreActivity extends AppCompatActivity implements StorePacka
                 "  while [ ${#line} -lt \"$target\" ]; do line=\"${line}${d}\"; done\n" +
                 "  echo -e \"\\033[90m${line:0:$target}\\033[0m\"\n" +
                 "}\n" +
-                "echo -e '\\033[1;32m●\\033[0m \\033[1;33mTermux Play Store: " + title + "\\033[0m'\n" +
-                "echo -e '\\033[1;34m$ " + shellCommand.replace("'", "'\\''") + "\\033[0m'\n" +
+                "echo -e '\\033[1;32m●\\033[0m \\033[1;33mTermux Play Store: " + title.replace("'", "'\\''") + "\\033[0m'\n" +
+                "echo -e '\\033[1;34m$ " + shellCommand.replace("'", "'\\''").replace("\n", " ; ") + "\\033[0m'\n" +
                 "draw_divider\n" +
                 shellCommand + "\n" +
                 "EXIT_CODE=$?\n" +
@@ -1050,24 +1046,14 @@ public class TermuxStoreActivity extends AppCompatActivity implements StorePacka
                 "echo 'Sesión activa para auditar y depurar'\n" +
                 "echo 'Escribe exit cuando desees cerrar esta sesión manualmente'\n" +
                 "echo ''\n" +
-                "if [ -n \"$SHELL\" ] && [ -x \"$SHELL\" ]; then\n" +
-                "  exec \"$SHELL\"\n" +
-                "elif [ -x /data/data/com.termux/files/usr/bin/bash ]; then\n" +
-                "  exec /data/data/com.termux/files/usr/bin/bash\n" +
-                "elif [ -x /data/data/com.termux/files/usr/bin/sh ]; then\n" +
-                "  exec /data/data/com.termux/files/usr/bin/sh\n" +
-                "else\n" +
-                "  exec /system/bin/sh\n" +
-                "fi\n";
+                "exec ${SHELL:-/data/data/com.termux/files/usr/bin/bash}\n";
 
-            try (FileOutputStream fos = new FileOutputStream(scriptFile)) {
-                fos.write(scriptContent.getBytes());
-            }
-            scriptFile.setExecutable(true, false);
+            String executablePath = TermuxConstants.TERMUX_BIN_PREFIX_DIR_PATH + "/bash";
+            final Uri bashUri = UriUtils.getFileUri(executablePath);
 
-            final Uri scriptUri = UriUtils.getFileUri(scriptFile.getAbsolutePath());
-            Intent executeIntent = new Intent(TERMUX_SERVICE.ACTION_SERVICE_EXECUTE, scriptUri);
+            Intent executeIntent = new Intent(TERMUX_SERVICE.ACTION_SERVICE_EXECUTE, bashUri);
             executeIntent.setClass(this, TermuxService.class);
+            executeIntent.putExtra(TERMUX_SERVICE.EXTRA_ARGUMENTS, new String[]{"-l", "-c", fullCommandString});
             executeIntent.putExtra(TERMUX_SERVICE.EXTRA_SHELL_NAME, title);
             startService(executeIntent);
 
@@ -1076,8 +1062,8 @@ public class TermuxStoreActivity extends AppCompatActivity implements StorePacka
             startActivity(termuxIntent);
 
             Toast.makeText(this, "Ejecutando en la terminal: " + title, Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Toast.makeText(this, "Error preparando script: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error al ejecutar en la terminal: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
