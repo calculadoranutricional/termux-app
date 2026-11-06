@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:57fd4e760a2089fbd7c1b1b193636e1d77dcec607d938cbff0fcb9a6cf1ff178",
+  "claims": [
+    {
+      "id": "claim_crash_handler_interception",
+      "statement": "CrashHandler implements UncaughtExceptionHandler to intercept exceptions and serialize diagnostic reports to disk.",
+      "evidence": [
+        {
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/crash/CrashHandler.java#L47-L87",
+          "version": "repo-lines-v1:sha256:5fda2ef37c91f8c65ff1ee33b737f2409559e3a8278aadafee9abaea849b3a3e"
+        }
+      ]
+    },
+    {
+      "id": "claim_report_activity_markwon",
+      "statement": "ReportActivity renders markdown crash and diagnostic reports using the Markwon markdown library.",
+      "evidence": [
+        {
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/activities/ReportActivity.java#L40-L75",
+          "version": "repo-lines-v1:sha256:6cb4b6b096df17a697e61b5e338079bbaf9f3522c7fc4fb0ffde3e88eed3f648"
+        }
+      ]
+    },
+    {
+      "id": "claim_logger_levels",
+      "statement": "Logger provides standardized log levels and extended formatted logging methods across all Termux modules.",
+      "evidence": [
+        {
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/logger/Logger.java#L25-L65",
+          "version": "repo-lines-v1:sha256:d2e3e0ddaf270219a9f18f2d08b00b02eadae8b1566352dea32dd8169269aeb6"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "manual-audit/gemini-3.8-flash",
+    "at": "2026-11-06T00:54:29.596904Z"
+  }
+}

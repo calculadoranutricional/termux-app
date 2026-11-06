@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:8e935abf2892365653c901a3faa34e0b280ca1eb8f513a2c8776d37045fb60ca",
+  "claims": [
+    {
+      "id": "claim_terminal_test_case_mock_output",
+      "statement": "TerminalTestCase creates a mock terminal output harness capturing write buffers, titles, bells, and clipboard events.",
+      "evidence": [
+        {
+          "resource": "repo://terminal-emulator/src/test/java/com/termux/terminal/TerminalTestCase.java#L19-L46",
+          "version": "repo-lines-v1:sha256:09732f01320918cbf541253efa7aab861b406d68dec8a5e0ab679081974a325f"
+        }
+      ]
+    },
+    {
+      "id": "claim_terminal_test_buffer_assertions",
+      "statement": "TerminalTest validates terminal buffer handling, alternate screen scrolling, mouse reporting, and transcript generation.",
+      "evidence": [
+        {
+          "resource": "repo://terminal-emulator/src/test/java/com/termux/terminal/TerminalTest.java#L1-L45",
+          "version": "repo-lines-v1:sha256:ac843f14bced80251596ebed601c8c55d025b34f44419b54d1df1fcbff9d0774"
+        }
+      ]
+    },
+    {
+      "id": "claim_robolectric_local_jvm_testing",
+      "statement": "Robolectric enables JVM-based testing of TermuxActivity and FileReceiverActivity without physical Android hardware or an emulator.",
+      "evidence": [
+        {
+          "resource": "repo://app/build.gradle#L120-L124",
+          "version": "repo-lines-v1:sha256:cedc8943d56a4bca8ae4388cfbac6de18d63e9a66c03f70cdffde288cb359409"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "manual-audit/gemini-3.8-flash",
+    "at": "2026-11-06T00:54:29.596904Z"
+  }
+}

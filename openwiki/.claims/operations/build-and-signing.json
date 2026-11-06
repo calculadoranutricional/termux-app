@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:583e39849141d60ff0a509fcf8ef9d91c1b5094010d7fa691d02e2f099df9001",
+  "claims": [
+    {
+      "id": "claim_build_ndk_compilation",
+      "statement": "Termux uses Gradle with NDK build configuration compiling native C bootstrap and PTY routines.",
+      "evidence": [
+        {
+          "resource": "repo://app/build.gradle#L64-L68",
+          "version": "repo-lines-v1:sha256:1a802f6b28d60919b689190960c6c4c46426188124df642dc3b7df64714a5aa4"
+        }
+      ]
+    },
+    {
+      "id": "claim_signing_debug_keystore",
+      "statement": "The debug signing configuration utilizes testkey_untrusted.jks with custom keystore and key passwords.",
+      "evidence": [
+        {
+          "resource": "repo://app/build.gradle#L81-L88",
+          "version": "repo-lines-v1:sha256:6415f80d33d0cf861bb7c1bebda11ca14c6d7146d6a5ed930aea4b397577044e"
+        }
+      ]
+    },
+    {
+      "id": "claim_abi_splits_packaging",
+      "statement": "ABI splits are configured for x86, x86_64, armeabi-v7a, and arm64-v8a with universal APK generation enabled.",
+      "evidence": [
+        {
+          "resource": "repo://app/build.gradle#L70-L77",
+          "version": "repo-lines-v1:sha256:30a90b834829dbf6b11ec769e4eb9477910f23213c6bdb3c4e469ff7d931b06e"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "manual-audit/gemini-3.8-flash",
+    "at": "2026-11-06T00:54:29.596904Z"
+  }
+}

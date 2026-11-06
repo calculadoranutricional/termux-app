@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:14b4cbb3590dc8d2d2d5bbfad076730de335da6d0c95b21f16f56dcc2dd7cc53",
+  "pageVersion": "sha256:2c800a56af4a8324340a263f848fbe646cf8e936fd0c254b8a860668092cf876",
   "claims": [
     {
       "id": "claim_1cfa40f893c24e5b9a412de834d1cc49",
@@ -62,7 +62,7 @@
     }
   ],
   "verification": {
-    "by": "openwiki/0.7.2",
-    "at": "2026-10-26T20:00:32.746Z"
+    "by": "manual-audit/gemini-3.8-flash",
+    "at": "2026-11-06T00:54:29.596904Z"
   }
 }

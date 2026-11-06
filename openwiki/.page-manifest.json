@@ -10,17 +10,17 @@
     },
     "/openwiki/architecture/modules-and-dependencies.md": {
       "gitHead": "8629e632fcb95da272221be327db653fb24befe9",
-      "sourceFingerprint": "sha256:4ecfdc919b6e450fd2dca9ce00570b05282e48eb070d0b1d567c7e52f43e02c3",
-      "pageVersion": "sha256:14b4cbb3590dc8d2d2d5bbfad076730de335da6d0c95b21f16f56dcc2dd7cc53",
-      "completedBy": "openwiki/0.7.2",
-      "completedRunId": "19e919ba-b7ba-42cd-a102-4c6e31e63a64"
+      "sourceFingerprint": "sha256:d6b60767130c6f7b2c9d80e0d211478afd3ba09e7679fa46b56192fb2f8838fb",
+      "pageVersion": "sha256:2c800a56af4a8324340a263f848fbe646cf8e936fd0c254b8a860668092cf876",
+      "completedBy": "manual-audit/gemini-3.8-flash",
+      "completedRunId": "41a5d0ad-ff14-417e-a271-99cd5984fa1d"
     },
     "/openwiki/architecture/overview.md": {
       "gitHead": "8629e632fcb95da272221be327db653fb24befe9",
-      "sourceFingerprint": "sha256:4ecfdc919b6e450fd2dca9ce00570b05282e48eb070d0b1d567c7e52f43e02c3",
-      "pageVersion": "sha256:b2eabb908d31667d9d49d78f88b32ded0f434cc62bca7d2a9e5a22c749270b56",
-      "completedBy": "openwiki/0.7.2",
-      "completedRunId": "19e919ba-b7ba-42cd-a102-4c6e31e63a64"
+      "sourceFingerprint": "sha256:76e1feeb9586c96d920c4b703eb5619a3a7befb9a0059ee199e01c1f1ee0cf8d",
+      "pageVersion": "sha256:b811496f288467beb613230d124ee8964336ce1d7bb9cd46288e9b338f9405c3",
+      "completedBy": "manual-audit/gemini-3.8-flash",
+      "completedRunId": "3f903b17-de3f-477b-8f63-8d02fd2835aa"
     },
     "/openwiki/architecture/service-and-background-runtime.md": {
       "gitHead": "HEAD",
@@ -94,10 +94,10 @@
     },
     "/openwiki/quickstart.md": {
       "gitHead": "HEAD",
-      "sourceFingerprint": "sha256:28d894ae2a1aa32598c508dee83433d7d76259e88068cf33072da447f11e2791",
-      "pageVersion": "sha256:5d4dd6d04dbf087e59fce3d40dbd2c708e51428390558b9315c53f3f366704d4",
-      "completedBy": "manual-audit",
-      "completedRunId": "1e97209d-9a39-46b2-9375-72f1500ba140"
+      "sourceFingerprint": "sha256:78973837360d9ce9f38c7695ae630b69f3a2916e5229bbd078d8b6483b42b271",
+      "pageVersion": "sha256:6ffaac22aed37cff47b90aea45b8a7c3aee1c723c33cf958071085cea776b798",
+      "completedBy": "manual-audit/gemini-3.8-flash",
+      "completedRunId": "637161cc-b079-4192-84f6-664d63b340b6"
     },
     "/openwiki/workflows/bootstrap-installation.md": {
       "gitHead": "HEAD",
@@ -133,6 +133,41 @@
       "pageVersion": "sha256:02f4ac3d65aa4020f9df3960053502e0bb286a2b49550f3995c8b5393d0cea92",
       "completedBy": "manual-audit",
       "completedRunId": "0886cc20-a8ce-4ba2-9017-9850f93d7cc7"
+    },
+    "/openwiki/operations/build-and-signing.md": {
+      "pageVersion": "sha256:583e39849141d60ff0a509fcf8ef9d91c1b5094010d7fa691d02e2f099df9001",
+      "completedBy": "manual-audit/gemini-3.8-flash",
+      "completedRunId": "79b25faa-f47f-4c1c-b21f-4e0a8918ca96",
+      "gitHead": "HEAD",
+      "sourceFingerprint": "sha256:0306c589402371abdaf071cc26a84f2dd1520cc9c62037c199507f0e49bbf668"
+    },
+    "/openwiki/operations/forensics-and-logging.md": {
+      "pageVersion": "sha256:57fd4e760a2089fbd7c1b1b193636e1d77dcec607d938cbff0fcb9a6cf1ff178",
+      "completedBy": "manual-audit/gemini-3.8-flash",
+      "completedRunId": "3a5ae294-1d6c-45d0-81cb-52c4f84f8f2f",
+      "gitHead": "HEAD",
+      "sourceFingerprint": "sha256:5cc71afcb0698d90d2d39fb2210ec7a352427c7fcc75603d2f0c0eeaf211b28a"
+    },
+    "/openwiki/integrations/plugin-protocol-and-intents.md": {
+      "pageVersion": "sha256:fa6e2d6df6de920dee5770cb408f37c8b856830bb5e6f4ab0062746ef11f5060",
+      "completedBy": "manual-audit/gemini-3.8-flash",
+      "completedRunId": "e5ed2a48-ad5f-43d3-a701-c1705eee8b70",
+      "gitHead": "HEAD",
+      "sourceFingerprint": "sha256:bac3a63cf421d24d7dfc09991e63a750e8fb6c3bedca7c6279dbdc28dfdb8051"
+    },
+    "/openwiki/integrations/permissions-and-security.md": {
+      "pageVersion": "sha256:d597697124c82dab39117f521c9139c9006628e2dd837c1035c831d05ea6d7d4",
+      "completedBy": "manual-audit/gemini-3.8-flash",
+      "completedRunId": "b155a547-0a2e-4e61-8b6f-e6ebd0c33ca1",
+      "gitHead": "HEAD",
+      "sourceFingerprint": "sha256:ac07f68b2f070522038a0fdfe62649bd45999b8b80be70fba4bdccbc510311c4"
+    },
+    "/openwiki/testing/unit-testing-and-test-suites.md": {
+      "pageVersion": "sha256:8e935abf2892365653c901a3faa34e0b280ca1eb8f513a2c8776d37045fb60ca",
+      "completedBy": "manual-audit/gemini-3.8-flash",
+      "completedRunId": "e016d58a-9ada-4745-87cb-e31a7ee568a2",
+      "gitHead": "HEAD",
+      "sourceFingerprint": "sha256:275acb99e3f2930cc5e42cfaeb40df1768610a715b7da3fe0863c12ffdbb3236"
     }
   }
 }

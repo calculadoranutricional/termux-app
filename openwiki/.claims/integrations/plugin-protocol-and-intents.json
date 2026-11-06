@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:fa6e2d6df6de920dee5770cb408f37c8b856830bb5e6f4ab0062746ef11f5060",
+  "claims": [
+    {
+      "id": "claim_run_command_service_intent",
+      "statement": "RunCommandService receives the RUN_COMMAND action intent, parses execution parameters, and delegates execution to TermuxService.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/com/termux/app/RunCommandService.java#L58-L80",
+          "version": "repo-lines-v1:sha256:72de78f52a6ae729c4b12000deb3ef064439a5d5c3ad0f4e4f54be7f9c3a1266"
+        }
+      ]
+    },
+    {
+      "id": "claim_plugin_utils_result_sender",
+      "statement": "TermuxPluginUtils processes command execution results and delivers exit codes, stdout, and stderr back via PendingIntent or result files.",
+      "evidence": [
+        {
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/termux/plugins/TermuxPluginUtils.java#L45-L65",
+          "version": "repo-lines-v1:sha256:249c0ca13061dd8592e6b56eca6f21c2528e19fda51a2428772ce142c07d1e6c"
+        }
+      ]
+    },
+    {
+      "id": "claim_run_command_manifest_permission",
+      "statement": "RunCommandService is exported with com.termux.permission.RUN_COMMAND to restrict execution to authorized applications.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/AndroidManifest.xml#L207-L213",
+          "version": "repo-lines-v1:sha256:f44322103920e9aefe0a3a6ea9a4df48d87f05c605cab696bc96ef623bfafb60"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "manual-audit/gemini-3.8-flash",
+    "at": "2026-11-06T00:54:29.596904Z"
+  }
+}

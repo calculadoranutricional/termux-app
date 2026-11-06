@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:d597697124c82dab39117f521c9139c9006628e2dd837c1035c831d05ea6d7d4",
+  "claims": [
+    {
+      "id": "claim_dangerous_run_command_perm",
+      "statement": "The dangerous permission com.termux.permission.RUN_COMMAND controls third-party access to command execution.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/AndroidManifest.xml#L15-L20",
+          "version": "repo-lines-v1:sha256:601167a501edfdc222df2098953235a83800d4b504728543c9e335191c04a225"
+        }
+      ]
+    },
+    {
+      "id": "claim_shared_user_id_model",
+      "statement": "Termux shares its Linux UID with official companion plugins using the sharedUserId manifest attribute.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/AndroidManifest.xml#L5-L6",
+          "version": "repo-lines-v1:sha256:262150bcd91aef21c72757ecae5b412bcfc8ab6cf6be2cddaeb6bc2df5886674"
+        }
+      ]
+    },
+    {
+      "id": "claim_content_provider_dotfile_protection",
+      "statement": "Content providers protect sensitive hidden directories and dotfiles from external unauthorized access.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/AndroidManifest.xml#L177-L183",
+          "version": "repo-lines-v1:sha256:e1c6fdc9812079bde01b7bff09607cebdd295d8c0c98f2ab6915c94d55ed48cb"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "manual-audit/gemini-3.8-flash",
+    "at": "2026-11-06T00:54:29.596904Z"
+  }
+}
