@@ -11,7 +11,7 @@ Antes de inspeccionar código fuente en profundidad o utilizar herramientas de b
 
 1. **Enrutamiento Conceptual con `view_file`**:
    - Al inicio de cualquier tarea que involucre arquitectura, módulos o flujos, ejecuta `view_file` sobre `/openwiki/quickstart.md` para identificar el dominio exacto.
-   - El proyecto se divide en 4 módulos Gradle (`:app`, `:termux-shared`, `:terminal-view`, `:terminal-emulator`) y capas C/C++ nativas, estructurados en 3 áreas canónicas:
+   - El proyecto se divide en 4 módulos Gradle (`:app`, `:termux-shared`, `:terminal-view`, `:terminal-emulator`) y capas C/C++ nativas, estructurados en los 6 dominios canónicos:
      - **Arquitectura (`openwiki/architecture/`)**:
        - `overview.md`: Topología de componentes, procesos, servicios (`TermuxService`) y fronteras de seguridad.
        - `modules-and-dependencies.md`: Estructura multi-módulo Gradle y resolución de dependencias.
@@ -33,6 +33,14 @@ Antes de inspeccionar código fuente en profundidad o utilizar herramientas de b
        - `package-management-and-store.md`: Catálogo de la tienda (`TermuxStoreActivity`), inyección atómica Bracketed Paste (`TerminalEmulator.paste()`) y ejecución en sesión activa (`ACTION_EXECUTE_IN_CURRENT_SESSION`).
        - `storage-access-and-file-sharing.md`: Integración SAF (`TermuxDocumentsProvider`) y receptor de compartición (`FileReceiverActivity`).
        - `bootstrap-installation.md`: Extracción de paquetes bootstrap nativos (`libtermux-bootstrap.so`), staging atómico y symlinks de almacenamiento.
+     - **Operaciones (`openwiki/operations/`)**:
+       - `build-and-signing.md`: Orquestación Gradle (`assembleDebug`), compilación NDK, configuración de firma (`signingConfigs`) y empaquetado por ABI.
+       - `forensics-and-logging.md`: Captura de fallos no capturados con `CrashHandler`, visualizador Markwon en `ReportActivity` y niveles del `Logger`.
+     - **Integraciones (`openwiki/integrations/`)**:
+       - `plugin-protocol-and-intents.md`: Protocolo IPC de `RUN_COMMAND`, flujo de `RunCommandService` y retornos con `TermuxPluginUtils`.
+       - `permissions-and-security.md`: Permiso peligroso `com.termux.permission.RUN_COMMAND`, modelo `sharedUserId` y blindaje de dotfiles en ContentProviders.
+     - **Pruebas (`openwiki/testing/`)**:
+       - `unit-testing-and-test-suites.md`: Arnés `TerminalTestCase` con mock de salida (`MockTerminalOutput`), pruebas del emulador VT, pruebas Robolectric en `:app` y políticas sin emulador local.
 
 2. **Lectura Focalizada y Extracción de Símbolos Ancla**:
    - Utiliza `view_file` para leer **ÚNICAMENTE** la subpágina identificada desde `quickstart.md` aplicable a la tarea para no saturar tu ventana de contexto.
