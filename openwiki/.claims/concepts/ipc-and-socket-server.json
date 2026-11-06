@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:custom-ipc-socket-server-audit",
+  "pageVersion": "sha256:9950c6e375eae25c5ab069c574f95dfe28c1a0e7750fc60ede397ad18e727e87",
   "claims": [
     {
       "id": "claim_am_socket_server_local_domain",

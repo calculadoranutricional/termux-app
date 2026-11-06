@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:custom-crash-diagnostics-audit",
+  "pageVersion": "sha256:7217a23d7f861070485effb588f135c830b0f76bb9c2ecddfb2b7e9ae6b2d854",
   "claims": [
     {
       "id": "claim_crash_handler_ueh_interception",
-      "statement": "CrashHandler implements Thread.UncaughtExceptionHandler and captures unhandled exceptions across main and background threads, preserving default UEH delegation.",
+      "statement": "CrashHandler implements Thread.UncaughtExceptionHandler and captures unhandled exceptions across main and background threads, preserving default UEH delegation for main thread crashes while isolating background threads.",
       "evidence": [
         {
-          "resource": "repo://termux-shared/src/main/java/com/termux/shared/crash/CrashHandler.java#L23-L75",
-          "version": "repo-lines-v1:sha256:crashhandler-ueh"
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/crash/CrashHandler.java#L20-L60",
+          "version": "repo-lines-v1:sha256:ab70172115d1f072b927c6e3c4eb32bd222966948580653b1a7c0914f848ab8a:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyZTgyYjA0YTdhMDhhY2JiYmIyOGNkMWY2N2E5NWY3MDcwY2NiMjAwNDhjZjEzYmVhMjdhZjAyNjgwNDUyZWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM5Y2JiYzY1NDY5ZGIxY2EyODQyZWZkOTdkZjdlZTJjZTZjYzE1NzE0ODJkMDFhMThiNzkwYTEwYzdjNTEwZjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg4YmQwNDkzMmYxZjUxZjFhZTA0ZTY3Njc1Yjk3ODRhYjBiMmEyZGQyMDgyYmFjMTRlMTg2NmZkMmIzNTE0NzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUwOWYyOGU3YTg2ZTQ2NGZjZTZlMTFhMmNmMWI3YTE4MDcxOGZkMWQ1YTk3YTZmNmI1N2U3YWQwOGNlMzE3MjMifQ"
         }
       ]
     },
@@ -17,8 +17,8 @@
       "statement": "TermuxCrashUtils formats forensic markdown crash reports and dispatches high-priority system notifications that launch ReportActivity with ReportInfo.",
       "evidence": [
         {
-          "resource": "repo://termux-shared/src/main/java/com/termux/shared/termux/crash/TermuxCrashUtils.java#L40-L115",
-          "version": "repo-lines-v1:sha256:crashutils-notif"
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/termux/crash/TermuxCrashUtils.java#L144-L385",
+          "version": "repo-lines-v1:sha256:bd5f5adeb8db38865b82798bf30c6d66f915ef141954e60ba33a32d71baa0609:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIzMzVkYWQ1NjdkZDU0MWFjMTc1MTI5NDI0NzU0OWU4MDhhNTA4Y2YxNWU3MGE4MTkwNzI2MWIyZTgwYjAwZTQ5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIxZmY0YjA5MzE5N2VjMmFmYmZmMTJmODk4ZmY3MzMxMTk4MDRmNDNkN2UxNDI2N2ZkZTVlZGExYzhmODhmM2RiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4ZGYwZGFlZTNjNjZhNzI0MzE5ODZjNThkNGI3MjYzY2ViNzJmMzc3NmI2ZmE0Y2JmMjgxZjZjMDI1YTRiMTY0IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIxZWM5Nzg4ZjY4OWQ5ZWJjZWQwZjMwZjZmOGEyMGZkY2U4MWU3ZDJlMWFiNjk4NzNkNmY1NTFkMjZmMTBlZmRiIn0"
         }
       ]
     },
@@ -27,14 +27,24 @@
       "statement": "ReportActivity displays forensic logs using Markwon Markdown rendering and provides copy/share clipboard and intent options.",
       "evidence": [
         {
-          "resource": "repo://termux-shared/src/main/java/com/termux/shared/activities/ReportActivity.java#L35-L95",
-          "version": "repo-lines-v1:sha256:report-activity-markwon"
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/activities/ReportActivity.java#L115-L230",
+          "version": "repo-lines-v1:sha256:ce6e2a9d0993a3e22587e5b1b96d21b04133675d1ece21585ccfdb07f8927009:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlNmIwNDQ5MTQ2OTcyMmU4MzYzYTk0ZTQwNDQ1MzhlMDEzYTJhMjE3ZTM2YjFlNTY4YmE2MGFjYjdiNGM4ZjJlIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJmYjdiOTViYTM2Yzk0MmU2ODEwOWUyM2I4MjkxZjkzNDIzNDJjZmEyNjAwNjM0NjFhMDk0ZTRlOTE4NzY1NTNiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjMTY4YzZjMzFmNTE4MDlkNjhlM2IzZWMzODdlNjk5OTgzNmQxNjk4MTQ2Y2UxMjE4YTFkYTFhM2Q4MjU4M2NhIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJhYmEwMzdkNTdmNTk0NzI5MjkxOTRhNWVjMmJkNThhMzJhYzg1MDRkYmRlNzU4OGUyNmFhMGIyMzRiMWUyNjdiIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_9f1d8605ae7b41099d87523f0f2d15fc",
+      "statement": "ReportActivity caches oversized ReportInfo objects as serialized files in app cache storage when exceeding binder transaction limits and purges them on destruction or notification dismissal.",
+      "evidence": [
+        {
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/activities/ReportActivity.java#L310-L380",
+          "version": "repo-lines-v1:sha256:ddad620e6eb8059f301d4fc84930b66d771a823ed3ef3d481e34f56f5c9ea852:eyJzZWxlY3RlZExpbmVDb3VudCI6NzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU4MjIzM2EzYzM2MjQ4OWIwNjdjMmRlYjVkOTA5NWNlZDZjYjNjNzVlMzBhODUzN2I0MmM4YjdiYzIwOWNiMjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNhMGJkMDZmZjA1OTcxMjZkYTQ0NTQ5Y2UzYjc4YzBhNDZiNDA2NGE0ZWI2MmMyZGM3YjY5YmI0Y2UyMGI3YTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkZjg4ZmY4YmM4ODgyNmFjNzdlZTA3MjUzNWM5NDgxMDY1NTI5NWUyMjlkODg0MjJhOWUzNzcxZDgxMjQyYjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEwNWY3ODJiMzE1ODkyMGE0MDM2ZjFkOWIwMzFmNjJkZTgxN2MwZDgwNWMwZjk2MjQwZWQwMjEzYmVjZjY4YzMifQ"
         }
       ]
     }
   ],
   "verification": {
-    "by": "manual-audit",
-    "at": "2026-11-04T03:00:00.000Z"
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-05T11:32:11.070Z"
   }
 }

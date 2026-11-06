@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:custom-virtual-keyboard-extra-keys-audit",
+  "pageVersion": "sha256:017fbc8d319b2a9d81fa77d41518f3cbda5761774d7d62b68dd7cfcfee089738",
   "claims": [
     {
       "id": "claim_extra_keys_view_grid_layout",

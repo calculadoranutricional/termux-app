@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:custom-bootstrap-installation-audit",
+  "pageVersion": "sha256:802f6c57e7d78686e1e61cbcfe056a1e147f0a63dbde9bfa9d28f53924195a8c",
   "claims": [
     {
       "id": "claim_installer_primary_user_validation",

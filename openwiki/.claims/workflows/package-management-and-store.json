@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:custom-store-audit-v2",
+  "pageVersion": "sha256:e2de0b9edb171e18b1ea37d72f90cd7ff902410a3f244018d9795bfab150ba94",
   "claims": [
     {
       "id": "claim_store_catalog_and_filtering",

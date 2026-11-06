@@ -5,41 +5,20 @@ Este documento define tu manual operativo, de navegación, implementación y ver
 ---
 
 <!-- OPENWIKI:START -->
-## FASE 1: Contextualización Conceptual Obligatoria (OpenWiki)
 
-Antes de inspeccionar código fuente en profundidad o utilizar herramientas de búsqueda de texto, **DEBES** fundamentar tu comprensión conceptual de la arquitectura y los subsistemas en la base documental de `openwiki/`:
+## OpenWiki
 
-1. **Enrutamiento Conceptual con `view_file`**:
-   - Al inicio de cualquier tarea que involucre arquitectura, módulos o flujos, ejecuta `view_file` sobre `/openwiki/quickstart.md` para identificar el dominio exacto.
-   - El proyecto se divide en 4 módulos Gradle (`:app`, `:termux-shared`, `:terminal-view`, `:terminal-emulator`) y capas C/C++ nativas, estructurados en 3 áreas canónicas:
-     - **Arquitectura (`openwiki/architecture/`)**:
-       - `overview.md`: Topología de componentes, procesos, servicios (`TermuxService`) y fronteras de seguridad.
-       - `modules-and-dependencies.md`: Estructura multi-módulo Gradle y resolución de dependencias.
-       - `service-and-background-runtime.md`: Arquitectura de `TermuxService`, ciclo de foreground service, wakelocks y notificaciones persistentes.
-       - `crash-handling-and-diagnostics.md`: Intercepción de excepciones (`CrashHandler`), telemetría forense y visor Markwon (`ReportActivity`).
-       - `system-event-receivers-and-intents.md`: Ciclo de vida de broadcasts (`SystemEventReceiver`), actualizaciones de plugins, `termux-open` (`ContentProvider` con protección de dotfiles) y mitigaciones de *Phantom Process Killer* en Android 12+.
-     - **Conceptos (`openwiki/concepts/`)**:
-       - `terminal-emulation.md`: Motor DEC VT/ANSI, buffers de pantalla (`TerminalBuffer`, `TerminalRow`), gráficos Sixel y anchos Unicode (`WcWidth`).
-       - `native-jni-and-pty.md`: Capa C/C++ nativa (`termux.c`), asignación de PTY master/slave (`/dev/ptmx`), termios `IUTF8` y seguridad de sockets Unix `SO_PEERCRED`.
-       - `rendering-and-view.md`: Renderizado en `Canvas` (`TerminalView`, `TerminalRenderer`), gestos táctiles, selección de texto e inyección de contenido rico Gboard (`commitContent`).
-       - `virtual-keyboard-and-extra-keys.md`: Barra virtual de teclas (`ExtraKeysView`), modificadores (`SpecialButton`), gestos y matrices de `termux.properties`.
-       - `settings-and-preferences.md`: Arquitectura dual de configuración (`TermuxAppSharedPreferences` vs `termux.properties` dotfile) y recarga de estilos en caliente (`ACTION_RELOAD_STYLE`).
-       - `ipc-and-socket-server.md`: Servidor socket `AF_UNIX` local (`AmSocketServer`), autenticación por `SO_PEERCRED` y despacho de intents `am` de alto rendimiento.
-       - `shell-environment-and-execution.md`: Síntesis jerárquica de variables de entorno (`IShellEnvironment`, `TermuxShellEnvironment`), runner no interactivo `AppShell` y control de streams sin deadlock con `StreamGobbler`.
-       - `filesystem-and-posix-dispatcher.md`: Abstracción POSIX nativa (`NativeDispatcher`, syscalls `stat`/`lstat`/`fstat`), metadatos `FileAttributes`, permisos y operaciones seguras (`FileUtils`).
-     - **Flujos de Trabajo (`openwiki/workflows/`)**:
-       - `session-lifecycle.md`: Ciclo de vida de terminal sessions, procesos PTY y vinculación con `TermuxService`.
-       - `command-execution.md`: Ejecución externa, intents de `RunCommandService` y entorno shell.
-       - `package-management-and-store.md`: Catálogo de la tienda (`TermuxStoreActivity`), inyección atómica Bracketed Paste (`TerminalEmulator.paste()`) y ejecución en sesión activa (`ACTION_EXECUTE_IN_CURRENT_SESSION`).
-       - `storage-access-and-file-sharing.md`: Integración SAF (`TermuxDocumentsProvider`) y receptor de compartición (`FileReceiverActivity`).
-       - `bootstrap-installation.md`: Extracción de paquetes bootstrap nativos (`libtermux-bootstrap.so`), staging atómico y symlinks de almacenamiento.
+This repository has a generated `openwiki/` evidence index. It is optional just-in-time context, not required startup reading.
 
-2. **Lectura Focalizada y Extracción de Símbolos Ancla**:
-   - Utiliza `view_file` para leer **ÚNICAMENTE** la subpágina identificada desde `quickstart.md` aplicable a la tarea para no saturar tu ventana de contexto.
-   - **Extrae Símbolos Ancla**: Identifica las clases e interfaces listadas en el bloque YAML `sources:` (ej. `TerminalEmulator`, `RunCommandService`, `TermuxSession`, `TermuxStoreActivity`, `TermuxService`, `JNI`, `NativeDispatcher`, `CrashHandler`). Estos símbolos son tus puntos de entrada obligatorios para la Fase 2.
+- Do not enumerate, preload, or search wikis at task start. Use retrieval when the user asks for it, when unfamiliar architecture or dependency behavior materially affects the task, or when source inspection leaves an important uncertainty. Stop once the question is grounded.
+- When those conditions apply and OpenWiki retrieval tools are available, use `openwiki_search` for just-in-time context and `openwiki_read` for the relevant complete sections. If search returns `workspace_required`, ask which listed workspace to use and retry with its ID.
+- Use `openwiki_list_workspaces` or `openwiki_list_wikis` when workspace membership itself needs to be discovered.
+- If the retrieval tools are unavailable, read `openwiki/quickstart.md` and follow its links to the relevant pages.
+- Treat source code and tests as authoritative. A brief's unknowns and review items are verification gaps, not automatic requirements.
+- Prefer the narrowest quiet validation that proves the changed behavior. Preserve complete failure output.
 
-3. **Invariante**:
-   - No saltes directamente a lecturas masivas de código sin contextualización previa. Prohibido editar páginas de OpenWiki a menos que la tarea implique documentar o actualizar la arquitectura del proyecto.
+Use the repository's documented maintenance process to refresh generated pages after source changes. Check its configuration and completed runs before relying on automatic updates. Do not hand-edit generated OpenWiki pages unless explicitly asked; prefer updating source code/docs and letting OpenWiki regenerate.
+
 <!-- OPENWIKI:END -->
 
 ---

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:custom-service-background-runtime-audit",
+  "pageVersion": "sha256:3b5be56eb71724003a3f928f47dd5c75cd92866cf0d4c5306df7fe239ded03c8",
   "claims": [
     {
       "id": "claim_service_foreground_lifecycle",
