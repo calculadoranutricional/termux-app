@@ -21,8 +21,8 @@
           "version": "repo-lines-v1:sha256:installer-zip-extract"
         },
         {
-          "resource": "repo://app/src/main/cpp/termux-bootstrap.c#L1-L30",
-          "version": "repo-lines-v1:sha256:bootstrap-c-jni"
+          "resource": "repo://app/src/main/cpp/termux-bootstrap.c#L1-L11",
+          "version": "repo-lines-v1:sha256:cb9ffc558569a025d9e563c1cad1bba096fae3cfae177bbc47fc8293adb23558"
         }
       ]
     },

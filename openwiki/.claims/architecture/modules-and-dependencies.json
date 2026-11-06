@@ -11,8 +11,8 @@
           "version": "repo-lines-v1:sha256:f2ad83ea7295d44d0a4b1b1a6674588982d841c1f713c5a52def4477f0c2632f:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTAwZjFhMGM2ZDRmOTM1M2FkNjg3NDZjYzBhNTRlZjE2Njc5ZTBhYjM1MWE3NTE1YTU3MmVkZDJjZTJlYmY3ZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGVmOGE5YmFlMDhkNDNhYjUzYTM3NmMxYTcwMTg5ZGMyMWVhNWUyN2MxM2U1ZDYzMzVlYTI4NmYwNDNmZTcxNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTdjN2ZmZjJhZmFiMGRlZDk0YjgyM2Q3ZGU2YjI5NWYxZGU4NWVkZDFiMDljNmU5YzJkOTFiY2U5NjJlNjA2MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2JhYzU2NWRkZGVhMzQxYzA3NWM2ZWQwMjJmODU0ODRjOWViNzE3MTJhOTkyZDIzMDdlZGIxNzE2MDUxNDhiNSJ9"
         },
         {
-          "resource": "repo://settings.gradle",
-          "version": "repo-file-v1:sha256:3391c5710bc361853cdeca22e718cd74c978d504ec5e771497e025f4ba98f38b"
+          "resource": "repo://settings.gradle#L1-L1",
+          "version": "repo-lines-v1:sha256:3391c5710bc361853cdeca22e718cd74c978d504ec5e771497e025f4ba98f38b"
         }
       ]
     },

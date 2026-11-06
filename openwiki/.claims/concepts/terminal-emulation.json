@@ -7,8 +7,8 @@
       "statement": "TerminalEmulator implements the core ANSI/VT terminal state machine handling escape sequences including CSI, OSC, DCS, and APC.",
       "evidence": [
         {
-          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/TerminalEmulator.java",
-          "version": "repo-file-v1:sha256:5510c124feb5f863c87683a426738dfed500b273d2b4e467d10ee63ce9b1ca7b"
+          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/TerminalEmulator.java#L31-L135",
+          "version": "repo-lines-v1:sha256:b4ea48dcf160c22143dcfddc1844dc33875f10d13224353272920751fdd545e3"
         }
       ]
     },
@@ -17,12 +17,12 @@
       "statement": "TerminalBuffer manages screen rows, scrollback history, and reflowing during terminal resizes.",
       "evidence": [
         {
-          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/TerminalBuffer.java",
-          "version": "repo-file-v1:sha256:36de5bd628926dd03ce4f9684cabf463b9e1553df471c561c3ef2c3828618cc6"
+          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/TerminalBuffer.java#L19-L70",
+          "version": "repo-lines-v1:sha256:a8f24dbf3cd6ef0a788bedc51bbcab1a92acb383ed8800fdcfafa87aee3daea9"
         },
         {
-          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/TerminalRow.java",
-          "version": "repo-file-v1:sha256:918e709de8e66879f2aec22eb22f4b1dc76bb6cd43616d45f8d2f85a433837f9"
+          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/TerminalRow.java#L10-L60",
+          "version": "repo-lines-v1:sha256:5da122d7c83e7de4adbf0a620162b352b495dbe17b1c89987329ee3c11a2fa11"
         }
       ]
     },
@@ -31,8 +31,8 @@
       "statement": "WcWidth calculates the display width of Unicode code points to ensure proper column alignment and multi-column glyph handling.",
       "evidence": [
         {
-          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/WcWidth.java",
-          "version": "repo-file-v1:sha256:68fc84a28813b13e4a1dfec8d9acbd9d7bd2a6cea62fe2f38319d1eca6cca776"
+          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/WcWidth.java#L14-L45",
+          "version": "repo-lines-v1:sha256:c1fe92a276ae687ec2a9a1aae195c0c29549cf3aa296690df856e0954baad094"
         }
       ]
     },
@@ -41,14 +41,14 @@
       "statement": "KeyHandler translates Android input events and key combinations into terminal control sequences and byte streams.",
       "evidence": [
         {
-          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/KeyHandler.java",
-          "version": "repo-file-v1:sha256:78688caed123d644f49cdaee2515849b704a6be29e00e6e865179e358b5f1eee"
+          "resource": "repo://terminal-emulator/src/main/java/com/termux/terminal/KeyHandler.java#L57-L160",
+          "version": "repo-lines-v1:sha256:17bcd26cbc9a7d430e2b058122469f87a5453544675270defda7af40c36443aa"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.7.2",
-    "at": "2026-10-26T20:00:32.746Z"
+    "by": "manual-audit/gemini-3.8-flash",
+    "at": "2026-11-06T00:54:29.596904Z"
   }
 }

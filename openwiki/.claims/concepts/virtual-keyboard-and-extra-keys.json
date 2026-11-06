@@ -17,8 +17,8 @@
       "statement": "SpecialButton and SpecialButtonState manage modifier keys (Ctrl, Alt, Shift, Fn) with INACTIVE, ACTIVE, and LOCKED tri-state transitions.",
       "evidence": [
         {
-          "resource": "repo://termux-shared/src/main/java/com/termux/shared/termux/extrakeys/SpecialButton.java#L15-L65",
-          "version": "repo-lines-v1:sha256:special-button-state"
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/termux/extrakeys/SpecialButton.java#L8-L52",
+          "version": "repo-lines-v1:sha256:f5f089d13b9f5461f81b439cd2971d65191bfe118d2bd05d308067311d524aa5"
         }
       ]
     },

@@ -57,8 +57,8 @@
       "statement": "TermuxShellEnvironment and related environment providers set up essential environment variables such as PATH, HOME, TMPDIR, and PREFIX for all spawned shell commands.",
       "evidence": [
         {
-          "resource": "repo://termux-shared/src/main/java/com/termux/shared/termux/shell/command/environment/TermuxShellEnvironment.java",
-          "version": "repo-file-v1:sha256:56e5db2fabf1361564935dfd1955ca819bcce63fd57e606b8063f87c13c7b1a2"
+          "resource": "repo://termux-shared/src/main/java/com/termux/shared/termux/shell/command/environment/TermuxShellEnvironment.java#L24-L85",
+          "version": "repo-lines-v1:sha256:6a0bfcc794477f6b17fe30954bcc6cf5ef0f9bf4233c7044f065e4a059daf0bf"
         }
       ]
     }
